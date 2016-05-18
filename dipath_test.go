@@ -1,7 +1,7 @@
 package dipath_test
 
 import (
-	"dipath"
+	"di/dipath"
 	"testing"
 )
 
@@ -17,6 +17,7 @@ var tests_lin2win = []testpair {
 	{ "/lustre/show/ghost/seq", "\\\\10.0.200.100\\show_ghost\\seq"},
 	{ "/lustre2/show/ghost/seq", "\\\\10.0.200.100\\show_ghost\\seq"},
 	{ "/lustre2/show/ghost/seq", "\\\\10.0.200.100\\show_ghost\\seq"},
+	{ "/lustre3/show/ghost/seq", "\\\\10.0.200.100\\show_ghost\\seq"},
 	{ "/lustre2/Marketing/2015Brochure/Creature/0911_confirm", "/lustre2/Marketing/2015Brochure/Creature/0911_confirm"}, //마운트포인트가 없음.
 }
 

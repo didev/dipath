@@ -73,6 +73,8 @@ func Lin2win(path string) string {
 		return "\\\\10.0.200.100\\show_" + strings.Replace(path[13:], "/", "\\", len(path[13:]))
 	} else if strings.HasPrefix(path, "/lustre2/show") {
 		return "\\\\10.0.200.100\\show_" + strings.Replace(path[14:], "/", "\\", len(path[14:]))
+	} else if strings.HasPrefix(path, "/lustre3/show") {
+		return "\\\\10.0.200.100\\show_" + strings.Replace(path[14:], "/", "\\", len(path[14:]))
 	} else {
 		return path
 	}
