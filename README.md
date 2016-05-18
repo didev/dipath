@@ -3,5 +3,6 @@
 
 # install
 ```
-go get -u http://gogs.idea.co.kr/khw7096/dipath.git
+cd /lustre/INHouse/Tool/gopath/src/di
+git clone http://gogs.idea.co.kr/khw7096/dipath.git
 ```
