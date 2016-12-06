@@ -6,9 +6,9 @@ package dipath
 import (
 	"io/ioutil"
 	"os"
+	"runtime"
 	"sort"
 	"strings"
-	"runtime"
 )
 
 //프로젝트경로의 폴더를 문자열 리스트로 가지고 온다.
@@ -17,7 +17,7 @@ func Projectlist() []string {
 	projectpath := "/show"
 	files, _ := ioutil.ReadDir(projectpath)
 	for _, f := range files {
-		fileInfo, _ := os.Lstat(projectpath+"/"+f.Name())
+		fileInfo, _ := os.Lstat(projectpath + "/" + f.Name())
 		if !strings.HasPrefix(f.Name(), ".") && fileInfo.Mode()&os.ModeSymlink == os.ModeSymlink {
 			dirlist = append(dirlist, f.Name())
 		} else if !strings.HasPrefix(f.Name(), ".") && fileInfo.IsDir() {
@@ -31,10 +31,14 @@ func Projectlist() []string {
 //서버의 temp경로를 반환한다.
 func TEMP() string {
 	switch runtime.GOOS {
-		case "windows" : return "\\\\10.0.200.100\\show_TEMP\\tmp\\"
-		case "linux" : return "/show/TEMP/tmp/"
-		case "darwin" : return "/show/TEMP/tmp/"
-		default: return "/show/TEMP/tmp/"
+	case "windows":
+		return "\\\\10.0.200.100\\show_TEMP\\tmp\\"
+	case "linux":
+		return "/show/TEMP/tmp/"
+	case "darwin":
+		return "/show/TEMP/tmp/"
+	default:
+		return "/show/TEMP/tmp/"
 	}
 }
 
@@ -63,9 +67,9 @@ func Win2lin(path string) string {
 
 //리눅스 경로를 윈도우즈 경로로 바꾼다.
 func Lin2win(path string) string {
-	if strings.HasPrefix(path,"/lustre2/Digitalidea_source/flib") { //flib
+	if strings.HasPrefix(path, "/lustre2/Digitalidea_source/flib") { //flib
 		return "\\\\10.0.200.100\\lustre_Digitalidea_source\\flib" + strings.Replace(path[32:], "/", "\\", len(path[32:]))
-	} else if strings.HasPrefix(path,"/lustre/Digitalidea_source/flib") { //flib
+	} else if strings.HasPrefix(path, "/lustre/Digitalidea_source/flib") { //flib
 		return "\\\\10.0.200.100\\lustre_Digitalidea_source\\flib" + strings.Replace(path[31:], "/", "\\", len(path[31:]))
 	} else if strings.HasPrefix(path, "/show") {
 		return "\\\\10.0.200.100\\show_" + strings.Replace(path[6:], "/", "\\", len(path[6:]))
