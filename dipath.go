@@ -42,26 +42,21 @@ func TEMP() string {
 	}
 }
 
-//윈도우즈 경로를 리눅스 경로로 바꾼다.
+// 윈도우즈 경로를 리눅스 경로로 바꾼다.
+// 만약, 변환되지 않으면 패스를 그대로 출력한다.
 func Win2lin(path string) string {
 	if strings.HasPrefix(path, "W:\\") {
 		return "/show/" + strings.Replace(path[3:], "\\", "/", len(path[3:]))
 	} else if strings.HasPrefix(path, "/show/") {
 		return path
-	} else if strings.HasPrefix(path, "/lustre") || strings.HasPrefix(path, "/lustre2") {
+	} else if strings.HasPrefix(path, "/lustre") || strings.HasPrefix(path, "/lustre2") || strings.HasPrefix(path, "/lustre3") {
 		return path
 	} else if strings.HasPrefix(path, "\\\\10.0.200.100\\show_") {
 		return "/show/" + strings.Replace(path[20:], "\\", "/", len(path[20:]))
-	} else if strings.HasPrefix(path, "\\\\10.0.200.101\\lustre_show\\") {
-		return "/show/" + strings.Replace(path[27:], "\\", "/", len(path[27:]))
-	} else if strings.HasPrefix(path, "\\\\10.0.200.101\\lustre2_show\\") {
-		return "/show/" + strings.Replace(path[28:], "\\", "/", len(path[28:]))
-	} else if strings.HasPrefix(path, "\\\\10.0.200.100\\3D_FX_Team\\") {
-		return "/lustre/3D_FX_Team/" + strings.Replace(path[26:], "\\", "/", len(path[26:]))
 	} else if strings.HasPrefix(path, "\\\\10.0.200.100\\lustre_Digitalidea_source\\") {
 		return "/lustre2/Digitalidea_source/" + strings.Replace(path[41:], "\\", "/", len(path[41:]))
 	} else {
-		return ""
+		return path
 	}
 }
 
