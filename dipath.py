@@ -16,6 +16,6 @@ def getSeq(shotname):
 
 def getShot(shotstring):
 	"""
-	SS_0010_comp_v01, A0010_SS_0010_comp_v01 형태의 문자에서 샷문자를 반환한다.
+	일반형태 SS_0010_comp_v01, 롤넘버가 붙은 형태 A0010_SS_0010_comp_v01 문자에서 샷문자 SS_0010 을 반환한다.
 	"""
 	pass

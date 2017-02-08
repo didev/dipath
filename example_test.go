@@ -1,8 +1,8 @@
 package dipath_test
 
 import (
-	"fmt"
 	"di/dipath"
+	"fmt"
 )
 
 func ExampleLin2win() {
