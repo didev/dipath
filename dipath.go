@@ -78,3 +78,11 @@ func Lin2win(path string) string {
 		return path
 	}
 }
+
+// 웹에서 파일을 드레그시 간혹 붙는 file:// 문자열을 제거한다.
+func RmFileProtocol(path string) string {
+	if strings.HasPrefix(path, "file://") {
+		return path[7:]
+	}
+	return path
+}

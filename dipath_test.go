@@ -58,3 +58,25 @@ func Test_win2lin(t *testing.T) {
 		}
 	}
 }
+
+func Test_RmFileProtocol(t *testing.T) {
+	cases := []struct {
+		in   string
+		want string
+	}{{
+		in:   "",
+		want: "",
+	}, {
+		in:   "file:///show/test",
+		want: "/show/test",
+	}, {
+		in:   "file://\\\\10.0.200.100\\show_test",
+		want: "\\\\10.0.200.100\\show_test",
+	}}
+	for _, c := range cases {
+		got := RmFileProtocol(c.in)
+		if RmFileProtocol(c.in) != c.want {
+			t.Fatalf("RmFileProtocol(%v): 얻은 값 %v, 원하는 값 %v", c.in, got, c.want)
+		}
+	}
+}
