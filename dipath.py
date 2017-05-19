@@ -1,28 +1,21 @@
 #coding:utf8
+import re
+import os
 
 def GetProject(path):
 	"""
-	경로를 받아서 프로젝트 문자열을 리턴한다.
+	경로를 받아서 프로젝트 문자열과 에러값을 리턴한다.
 	만약 리턴할 프로젝트 문자열이 없으면 ""를 리턴한다.
-
-	아래는 예상패턴이다. 사용자가 가장 많이 사용하는 순서이다.
-	/show/{{project}}/seq
-	/lustre3/show/{{project}}/seq
-	/lustre/show/{{project}}/seq
-	/lustre2/show/{{project}}/seq
-	\\\\10.0.200.100\\show_{{project}}\\seq
-	//10.0.200.100/show_{{project}}/seq
-	/fxdata/cache/show/{{project}}/seq
-	/backup/2016/{{project}}/org_fin
-	\\\\10.0.200.101\\lustre_show\\{{project}}\\seq
-	\\\\10.0.200.101\\lustre2_show\\{{project}}\\seq
-	\\\\10.0.200.101\\lustre3_show\\{{project}}\\seq
-	//10.0.200.101/lustre_show/{{project}}/seq
-	//10.0.200.101/lustre2_show/{{project}}/seq
-	//10.0.200.101/lustre3_show/{{project}}/seq
 	"""
-	pass
-
+	# show
+	show = re.findall('/show[/_](\S+?)/', path.replace("\\","/"))
+	if len(show) == 1:
+		return show[0], None
+	# backup
+	backup = re.findall('/backup/\d+?/(\S+?)/', path.replace("\\","/"))
+	if len(backup) == 1:
+		return backup[0], None
+	return "", "경로에서 프로젝트를 가지고 올 수 없습니다."
 
 def GetSeq(shotname):
 	"""
