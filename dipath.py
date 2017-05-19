@@ -15,7 +15,7 @@ def GetProject(path):
 	backup = re.findall('/backup/\d+?/(\S+?)/', path.replace("\\","/"))
 	if len(backup) == 1:
 		return backup[0], None
-	return "", "실행경로에서 프로젝트를 인식할 수 없습니다."
+	return "", "경로에서 프로젝트를 가지고 올 수 없습니다."
 
 def GetSeq(shotname):
 	"""
