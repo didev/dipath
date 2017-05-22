@@ -22,7 +22,7 @@ def Shot(path):
 	경로를 받아서 샷문자열과 에러값을 리턴한다.
 	만약 리턴할 샷이름이 없으면 ""를 리턴한다.
 	"""
-	hasRnum = re.findall("([ABCDEFGH]\d+4?)_([a-zA-Z0-9]+)_([a-zA-Z0-9]+)", path)
+	hasRnum = re.findall("([ABCDEFGH][0-9]{4})_([a-zA-Z0-9]+)_([a-zA-Z0-9]+)", path)
 	if hasRnum: # 롤넘버가 존재할때(최대8권)
 		return hasRnum[0][1] + "_" + hasRnum[0][2], None
 	hasShot = re.findall("([a-zA-Z0-9]+)_([a-zA-Z0-9]+)", path)
