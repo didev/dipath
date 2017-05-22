@@ -4,8 +4,11 @@
 package dipath
 
 import (
+	"fmt"
 	"io/ioutil"
 	"os"
+	"path/filepath"
+	"regexp"
 	"runtime"
 	"sort"
 	"strings"
@@ -85,4 +88,35 @@ func RmFileProtocol(path string) string {
 		return path[7:]
 	}
 	return path
+}
+
+//시퀀스 넘버를 가져오는 함수
+func Seqnum(cwdpath string) string {
+	var seqNum string = ""
+	dir := string(cwdpath)
+	_, file := filepath.Split(dir)
+
+	if strings.Contains(file, ".dpx") {
+		fullName := strings.SplitAfter(file, "_")
+		fullNum := len(fullName) - 1
+		name := strings.Split(fullName[fullNum], ".")
+		seq := ""
+		if len(name) == 2 {
+			seq = name[0]
+		} else if len(name) == 3 {
+			seq = name[1]
+		}
+
+		match, _ := regexp.MatchString("[0-9]", seq)
+		if match {
+			re, _ := regexp.Compile("([0-9]+)")
+			seqNum = re.FindString(seq)
+		} else {
+			fmt.Println("시퀀스가 없습니다.")
+		}
+	} else {
+		fmt.Println("파일이 없습니다.")
+	}
+
+	return seqNum
 }

@@ -80,3 +80,31 @@ func Test_RmFileProtocol(t *testing.T) {
 		}
 	}
 }
+
+func Test_Seqnum(t *testing.T) {
+	cases := []struct {
+		in   string
+		want string
+	}{{
+		in:   "",
+		want: "",
+	}, {
+		in:   "SS_0010_comp_v01.1036.dpx",
+		want: "1036",
+	}, {
+		in:   "SS_0010_comp1036.dpx",
+		want: "1036",
+	}, {
+		in:   "/show/test/SS_0010_comp_v01.1036.dpx",
+		want: "1036",
+	}, {
+		in:   "/show/test/SS_0010_comp1036.dpx",
+		want: "1036",
+	}}
+	for _, c := range cases {
+		got := dipath.Seqnum(c.in)
+		if dipath.Seqnum(c.in) != c.want {
+			t.Fatalf("SeqNumber(%w): 얻은 값 %w, 원하는 값 %w", c.in, got, c.want)
+		}
+	}
+}
