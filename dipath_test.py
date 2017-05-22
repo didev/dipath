@@ -23,7 +23,7 @@ class Test_dipath(unittest.TestCase):
 	def test_Shot(self):
 		self.assertEqual(Shot("A0000_SS_0010_comp_v01"), ("SS_0010",None)) # 롤넘버가 존재하는 형태
 		self.assertEqual(Shot("A0000_SS_0010_v01"), ("SS_0010",None)) # 롤넘버가 존재하는 형태
-		self.assertEqual(Shot("A000_SS_0010_v01"), ("A000_SS",None)) # 롤넘버형식이 아닌 포멧을 일부러 추가함.
+		self.assertEqual(Shot("A000_SS_0010_v01"), ("SS_0010",None)) # 롤넘버형식이 아닌 포멧을 일부러 추가함.
 		self.assertEqual(Shot("SS_0010_v01"), ("SS_0010",None))
 		self.assertEqual(Shot("SS_0010"), ("SS_0010",None))
 		self.assertEqual(Shot("R1VFX_sh033_comp_v01"), ("R1VFX_sh033",None))
