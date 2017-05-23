@@ -4,10 +4,13 @@
 package dipath
 
 import (
+	"errors"
 	"io/ioutil"
 	"os"
+	"regexp"
 	"runtime"
 	"sort"
+	"strconv"
 	"strings"
 )
 
@@ -85,4 +88,23 @@ func RmFileProtocol(path string) string {
 		return path[7:]
 	}
 	return path
+}
+
+//시퀀스 넘버를 가져오는 함수
+func Seqnum(path string) (int, error) {
+	re, err := regexp.Compile("([0-9]+)(\\.+[a-zA-Z]{3})$")
+	if err != nil {
+		return -1, errors.New("정규 표현식이 잘못되었습니다.")
+	}
+	file := re.FindStringSubmatch(path) //[0]: fullName, [1]: 시퀀스, [2]: .확장자
+	if file == nil {
+		return -1, errors.New("시퀀스 파일이 아닙니다.")
+	}
+	name := file[1]
+	seq := strings.Split(name, ".")[0]
+	seqNum, err := strconv.Atoi(seq)
+	if err != nil {
+		return -1, errors.New("시퀀스 파일이 아닙니다")
+	}
+	return seqNum, nil
 }

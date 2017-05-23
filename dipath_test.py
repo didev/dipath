@@ -32,6 +32,16 @@ class Test_dipath(unittest.TestCase):
 		self.assertEqual(Shot("SS_0010_00_previz_v001.mov"), ("SS_0010",None))
 		self.assertEqual(Shot("thesea2_SS_0010_00_previz_v001.mov"), ("SS_0010",None))
 		self.assertEqual(Shot("SDF"), ("","샷이름을 추출할 수 없습니다."))
+	
+	def test_Seqnum(self):
+		self.assertEqual(Seqnum("SS_0010_comp_v01.1036.dpx"), (1036,None))
+		self.assertEqual(Seqnum("SS_0010_comp1036.dpx"), (1036,None))
+		self.assertEqual(Seqnum("/show/test/SS_0010_comp_v01.1036.dpx"), (1036,None))
+		self.assertEqual(Seqnum("/show/test/SS_0010_comp1036.dpx"), (1036,None))
+		self.assertEqual(Seqnum("/show/test/SS_0010_comp_motion1036.dpx"), (1036,None))	
+		self.assertEqual(Seqnum("/show/test/SS_0010_v01.dddd.dpx"), (-1,"시퀀스 파일이 아닙니다."))
+		self.assertEqual(Seqnum(""), (-1,"시퀀스 파일이 아닙니다."))
+
 
 if __name__ == "__main__":
 	unittest.main()
