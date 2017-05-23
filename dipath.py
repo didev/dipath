@@ -36,7 +36,7 @@ def Seqnum(path):
 	만약 리턴할 넘버가 없으면 -1을 리턴한다.
 	"""
 	file = ""
-	p = re.compile("([0-9]+)(\\.+[a-zA-Z]+)$")
+	p = re.compile("([0-9]+)(\\.[a-zA-Z]+)$")
 	if p.search(path) != None:
 		file = p.findall(path)
 

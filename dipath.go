@@ -92,7 +92,7 @@ func RmFileProtocol(path string) string {
 
 //시퀀스 넘버를 가져오는 함수
 func Seqnum(path string) (int, error) {
-	re, err := regexp.Compile("([0-9]+)(\\.+[a-zA-Z]{3})$")
+	re, err := regexp.Compile("([0-9]+)(\\.[a-zA-Z]{3})$")
 	if err != nil {
 		return -1, errors.New("정규 표현식이 잘못되었습니다.")
 	}
