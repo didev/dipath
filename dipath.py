@@ -29,3 +29,19 @@ def Shot(path):
 	if hasShot:
 		return hasShot[0][0] + "_" + hasShot[0][1], None
 	return "", "샷이름을 추출할 수 없습니다."
+
+def Seqnum(path):
+	"""
+	경로를 받아서 시퀀스넘버와 에러값을 리턴한다.
+	만약 리턴할 넘버가 없으면 -1을 리턴한다.
+	"""
+	file = ""
+	p = re.compile("([0-9]+)(\\.+[a-zA-Z]+)$")
+	if p.search(path) != None:
+		file = p.findall(path)
+
+	if len(file) == 0:
+		return -1, "정규 표현식이 잘못되었습니다."
+	seqnum = int(file[0][0]) #[0][0]:시퀀스, [0][1]:.확장자	
+	return seqnum,None
+
