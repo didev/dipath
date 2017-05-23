@@ -36,12 +36,11 @@ def Seqnum(path):
 	만약 리턴할 넘버가 없으면 -1을 리턴한다.
 	"""
 	file = ""
-	p = re.compile("([0-9]+)(\\.[a-zA-Z]+)$")
-	if p.search(path) != None:
-		file = p.findall(path)
+	p = re.compile("([0-9]+)\\.[a-zA-Z]+$")
+	file = p.findall(path)
 
 	if len(file) == 0:
 		return -1, "시퀀스 파일이 아닙니다."
-	seqnum = int(file[0][0]) #[0][0]:시퀀스, [0][1]:.확장자	
+	seqnum = int(file[0])	
 	return seqnum,None
 
