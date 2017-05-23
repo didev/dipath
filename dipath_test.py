@@ -40,6 +40,7 @@ class Test_dipath(unittest.TestCase):
 		self.assertEqual(Seqnum("/show/test/SS_0010_comp1036.dpx"), (1036,None))
 		self.assertEqual(Seqnum("/show/test/SS_0010_comp_motion1036.dpx"), (1036,None))	
 		self.assertEqual(Seqnum("/show/test/SS_0010_v01.dddd.dpx"), (-1,"시퀀스 파일이 아닙니다."))
+		self.assertEqual(Seqnum("SS_0010_comp_v01.1036...dpx"), (-1,"시퀀스 파일이 아닙니다."))
 		self.assertEqual(Seqnum(""), (-1,"시퀀스 파일이 아닙니다."))
 
 
