@@ -104,6 +104,9 @@ func Test_Seqnum(t *testing.T) {
 		in:   "/show/test/SS_0010_comp_motion1036.dpx",
 		want: 1036,
 	}, {
+		in:   "SS_0010_comp_v01.1036...dpx",
+		want: -1,
+	}, {
 		in:   "/show/test/SS_0010_v01.dddd.dpx",
 		want: -1,
 	}}
