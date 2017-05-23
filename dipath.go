@@ -94,7 +94,7 @@ func RmFileProtocol(path string) string {
 func Seqnum(cwdpath string) (int, error) {
 	re, err := regexp.Compile("[0-9]+\\.+[a-zA-Z]{3}")
 	if err != nil {
-		return -1, errors.New("레귤러 익스프레션이 잘못되었습니다.")
+		return -1, errors.New("정규 표현식이 잘못되었습니다.")
 	}
 	file := re.FindString(cwdpath)
 	name := strings.Split(file, ".")[0]
