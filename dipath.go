@@ -91,12 +91,12 @@ func RmFileProtocol(path string) string {
 }
 
 //시퀀스 넘버를 가져오는 함수
-func Seqnum(cwdpath string) (int, error) {
+func Seqnum(path string) (int, error) {
 	re, err := regexp.Compile("([0-9]+)(\\.+[a-zA-Z]{3})$")
 	if err != nil {
 		return -1, errors.New("정규 표현식이 잘못되었습니다.")
 	}
-	file := re.FindStringSubmatch(cwdpath) //[0]: fullName, [1]: 시퀀스, [2]: .확장자
+	file := re.FindStringSubmatch(path) //[0]: fullName, [1]: 시퀀스, [2]: .확장자
 	if file == nil {
 		return -1, errors.New("시퀀스 파일이 아닙니다.")
 	}

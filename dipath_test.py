@@ -38,8 +38,8 @@ class Test_dipath(unittest.TestCase):
 		self.assertEqual(Seqnum("/show/test/SS_0010_comp_v01.1036.dpx"), (1036,None))
 		self.assertEqual(Seqnum("/show/test/SS_0010_comp1036.dpx"), (1036,None))
 		self.assertEqual(Seqnum("/show/test/SS_0010_comp_motion1036.dpx"), (1036,None))	
-		self.assertEqual(Seqnum("/show/test/SS_0010_v01.dddd.dpx"), (-1,"정규 표현식이 잘못되었습니다."))
-		self.assertEqual(Seqnum(""), (-1,"정규 표현식이 잘못되었습니다."))
+		self.assertEqual(Seqnum("/show/test/SS_0010_v01.dddd.dpx"), (-1,"시퀀스 파일이 아닙니다."))
+		self.assertEqual(Seqnum(""), (-1,"시퀀스 파일이 아닙니다."))
 
 
 if __name__ == "__main__":

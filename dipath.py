@@ -41,7 +41,7 @@ def Seqnum(path):
 		file = p.findall(path)
 
 	if len(file) == 0:
-		return -1, "정규 표현식이 잘못되었습니다."
+		return -1, "시퀀스 파일이 아닙니다."
 	seqnum = int(file[0][0]) #[0][0]:시퀀스, [0][1]:.확장자	
 	return seqnum,None
 
