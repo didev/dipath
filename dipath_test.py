@@ -30,6 +30,7 @@ class Test_dipath(unittest.TestCase):
 		self.assertEqual(Shot("/show/TEMP/seq/R1VFX/R1VFX_sh033/comp/dev/R1VFX_sh033_comp_v01"), ("R1VFX_sh033",None)) # 상위경로는 파이프라인툴로 제작된다. 하위보다는 상위경로를 더 신뢰하도록 한다.
 		self.assertEqual(Shot("/show/TEMP/product/out/confirm/170522/R1VFX_sh033_comp_v01"), ("R1VFX_sh033",None))
 		self.assertEqual(Shot("SS_0010_00_previz_v001.mov"), ("SS_0010",None))
+		self.assertEqual(Shot("thesea2_SS_0010_00_previz_v001.mov"), ("SS_0010",None))
 		self.assertEqual(Shot("SDF"), ("","샷이름을 추출할 수 없습니다."))
 
 if __name__ == "__main__":
