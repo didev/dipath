@@ -100,6 +100,12 @@ func Test_Seqnum(t *testing.T) {
 	}, {
 		in:   "/show/test/SS_0010_comp1036.dpx",
 		want: 1036,
+	}, {
+		in:   "/show/test/SS_0010_comp_motion1036.dpx",
+		want: 1036,
+	}, {
+		in:   "/show/test/SS_0010_v01.dddd.dpx",
+		want: -1,
 	}}
 	for _, c := range cases {
 		got, _ := dipath.Seqnum(c.in)
