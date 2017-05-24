@@ -111,3 +111,30 @@ func Seqnum(path string) (int, error) {
 	}
 	return seqNum, nil
 }
+
+//파일을 받아서 파일 버젼과 서브버전을   반환한다.
+//만약 리턴할 버전과 서브버전이  없으면 -1과 에러를 반환한다.
+func Vernum(path string) (int, int, error) {
+	re, err := regexp.Compile("[v||V]([0-9]+)(\\_[w||W])*([a-zA-Z0-9]+)*(\\.[0-9]+)*\\.[a-zA-Z]+$")
+	if err != nil {
+		return -1, -1, errors.New("레귤러 익스프레션이 잘못되었습니다.")
+	}
+
+	//예를 들어 "S_0010_ani_v01_w02.mb"값이 들어오면
+	//results리스트는 다음값을 가집니다. [0]:"v01_w02.mb", [1]:"01", [3]:"02"
+	results := re.FindStringSubmatch(path)
+	if results == nil {
+		return -1, -1, errors.New("버젼이 잘못되었습니다.")
+	}
+	verNum, err := strconv.Atoi(results[1])
+	if err != nil {
+		return -1, -1, errors.New("버전이 잘못되었습니다.")
+	}
+	//버전은 값이 있고 서브버전에 값이 없다면 -1을 반환
+	subNum, err := strconv.Atoi(results[3])
+	if err != nil {
+		subNum = -1
+	}
+
+	return verNum, subNum, nil
+}
