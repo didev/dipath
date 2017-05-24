@@ -90,8 +90,8 @@ func RmFileProtocol(path string) string {
 	return path
 }
 
-//경로를 받아서 시퀀스넘버를 리턴한다.
-//만약 리턴할 시컨스넘버가 없으면 -1과 에러를 리턴한다.
+//경로를 받아서 시퀀스넘버를 반환한다.
+//만약 리턴할 시컨스넘버가 없으면 -1과 에러를 반환한다.
 func Seqnum(path string) (int, error) {
 	re, err := regexp.Compile("([0-9]+)\\.[a-zA-Z]+$")
 	if err != nil {
