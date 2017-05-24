@@ -96,11 +96,14 @@ func Seqnum(path string) (int, error) {
 	if err != nil {
 		return -1, errors.New("정규 표현식이 잘못되었습니다.")
 	}
-	file := re.FindStringSubmatch(path) //[0]: fullName, [1]: 시퀀스
-	if file == nil {
+
+	//예를 들어 "SS_0010_comp_v01.0001.jpg"값이 들어오면
+	//results리스트는 다음값을 가집니다. [0]:"0001.jpg", [1]:"0001"
+	results := re.FindStringSubmatch(path)
+	if results == nil {
 		return -1, errors.New("시퀀스 파일이 아닙니다.")
 	}
-	seq := file[1]
+	seq := results[1]
 	seqNum, err := strconv.Atoi(seq)
 	if err != nil {
 		return -1, errors.New("시퀀스 파일이 아닙니다")
