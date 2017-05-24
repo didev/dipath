@@ -4,10 +4,13 @@
 package dipath
 
 import (
+	"errors"
 	"io/ioutil"
 	"os"
+	"regexp"
 	"runtime"
 	"sort"
+	"strconv"
 	"strings"
 )
 
@@ -85,4 +88,26 @@ func RmFileProtocol(path string) string {
 		return path[7:]
 	}
 	return path
+}
+
+//경로를 받아서 시퀀스넘버를 반환한다.
+//만약 리턴할 시컨스넘버가 없으면 -1과 에러를 반환한다.
+func Seqnum(path string) (int, error) {
+	re, err := regexp.Compile("([0-9]+)\\.[a-zA-Z]+$")
+	if err != nil {
+		return -1, errors.New("정규 표현식이 잘못되었습니다.")
+	}
+
+	//예를 들어 "SS_0010_comp_v01.0001.jpg"값이 들어오면
+	//results리스트는 다음값을 가집니다. [0]:"0001.jpg", [1]:"0001"
+	results := re.FindStringSubmatch(path)
+	if results == nil {
+		return -1, errors.New("시퀀스 파일이 아닙니다.")
+	}
+	seq := results[1]
+	seqNum, err := strconv.Atoi(seq)
+	if err != nil {
+		return -1, errors.New("시퀀스 파일이 아닙니다")
+	}
+	return seqNum, nil
 }

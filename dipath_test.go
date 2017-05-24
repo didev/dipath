@@ -74,9 +74,46 @@ func Test_RmFileProtocol(t *testing.T) {
 		want: "\\\\10.0.200.100\\show_test",
 	}}
 	for _, c := range cases {
-		got := RmFileProtocol(c.in)
-		if RmFileProtocol(c.in) != c.want {
+		got := dipath.RmFileProtocol(c.in)
+		if dipath.RmFileProtocol(c.in) != c.want {
 			t.Fatalf("RmFileProtocol(%v): 얻은 값 %v, 원하는 값 %v", c.in, got, c.want)
+		}
+	}
+}
+
+func Test_Seqnum(t *testing.T) {
+	cases := []struct {
+		in   string
+		want int
+	}{{
+		in:   "",
+		want: -1,
+	}, {
+		in:   "SS_0010_comp_v01.1036.dpx",
+		want: 1036,
+	}, {
+		in:   "SS_0010_comp1036.dpx",
+		want: 1036,
+	}, {
+		in:   "/show/test/SS_0010_comp_v01.1036.dpx",
+		want: 1036,
+	}, {
+		in:   "/show/test/SS_0010_comp1036.dpx",
+		want: 1036,
+	}, {
+		in:   "/show/test/SS_0010_comp_motion1036.dpx",
+		want: 1036,
+	}, {
+		in:   "SS_0010_comp_v01.1036...dpx",
+		want: -1,
+	}, {
+		in:   "/show/test/SS_0010_v01.dddd.dpx",
+		want: -1,
+	}}
+	for _, c := range cases {
+		got, _ := dipath.Seqnum(c.in)
+		if got != c.want {
+			t.Fatalf("SeqNumber(%w): 얻은 값 %w, 원하는 값 %w", c.in, got, c.want)
 		}
 	}
 }
