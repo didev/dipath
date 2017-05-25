@@ -74,8 +74,8 @@ func Test_RmFileProtocol(t *testing.T) {
 		want: "\\\\10.0.200.100\\show_test",
 	}}
 	for _, c := range cases {
-		got := RmFileProtocol(c.in)
-		if RmFileProtocol(c.in) != c.want {
+		got := dipath.RmFileProtocol(c.in)
+		if dipath.RmFileProtocol(c.in) != c.want {
 			t.Fatalf("RmFileProtocol(%v): 얻은 값 %v, 원하는 값 %v", c.in, got, c.want)
 		}
 	}

@@ -32,16 +32,14 @@ def Shot(path):
 
 def Seqnum(path):
 	"""
-	경로를 받아서 시퀀스넘버와 에러값을 리턴한다.
-	만약 리턴할 넘버가 없으면 -1을 리턴한다.
+	경로를 받아서 시퀀스넘버를 반환한다.                                                                                                                                                                                          
+	만약 리턴할 시컨스넘버가 없으면 -1과 에러를 반환한다.
 	"""
-	file = ""
-	p = re.compile("([0-9]+)(\\.[a-zA-Z]+)$")
-	if p.search(path) != None:
-		file = p.findall(path)
+	p = re.compile("([0-9]+)\\.[a-zA-Z]+$")
+	result = p.findall(path)
 
-	if len(file) == 0:
+	if len(result) == 0:
 		return -1, "시퀀스 파일이 아닙니다."
-	seqnum = int(file[0][0]) #[0][0]:시퀀스, [0][1]:.확장자	
+	seqnum = int(result[0])	
 	return seqnum,None
 
