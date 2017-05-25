@@ -113,7 +113,7 @@ func Test_Seqnum(t *testing.T) {
 	for _, c := range cases {
 		got, _ := dipath.Seqnum(c.in)
 		if got != c.want {
-			t.Fatalf("SeqNumber(%w): 얻은 값 %w, 원하는 값 %w", c.in, got, c.want)
+			t.Fatalf("SeqNumber(%v): 얻은 값 %v, 원하는 값 %v", c.in, got, c.want)
 		}
 	}
 }
@@ -159,9 +159,9 @@ func Test_Vernum(t *testing.T) {
 	for _, c := range cases {
 		got, subgot, _ := dipath.Vernum(c.in)
 		if got != c.want {
-			t.Fatalf("SeqNumber(%w): 얻은 값 %w, 원하는 값 %w", c.in, got, c.want)
+			t.Fatalf("SeqNumber(%v): 얻은 값 %v, 원하는 값 %v", c.in, got, c.want)
 		} else if subgot != c.subwant {
-			t.Fatalf("SeqNumber(%w): 얻은 값 %w, 원하는 값 %w", c.in, subgot, c.subwant)
+			t.Fatalf("SeqNumber(%v): 얻은 값 %v, 원하는 값 %v", c.in, subgot, c.subwant)
 		}
 	}
 }
