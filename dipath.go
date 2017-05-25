@@ -115,7 +115,7 @@ func Seqnum(path string) (int, error) {
 //파일을 받아서 파일 버젼과 서브버전을   반환한다.
 //만약 리턴할 버전과 서브버전이  없으면 -1과 에러를 반환한다.
 func Vernum(path string) (int, int, error) {
-	re, err := regexp.Compile("[v||V]([0-9]+)(\\_[w||W])*([a-zA-Z0-9]+)*(\\.[0-9]+)*\\.[a-zA-Z]+$")
+	re, err := regexp.Compile(`_[vV]([0-9]+)(_[wW]([0-9]+))*`)
 	if err != nil {
 		return -1, -1, errors.New("레귤러 익스프레션이 잘못되었습니다.")
 	}

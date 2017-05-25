@@ -159,9 +159,9 @@ func Test_Vernum(t *testing.T) {
 	for _, c := range cases {
 		got, subgot, _ := dipath.Vernum(c.in)
 		if got != c.want {
-			t.Fatalf("SeqNumber(%v): 얻은 값 %v, 원하는 값 %v", c.in, got, c.want)
+			t.Fatalf("Vernum(%v): 얻은 값 %v, 원하는 값 %v", c.in, got, c.want)
 		} else if subgot != c.subwant {
-			t.Fatalf("SeqNumber(%v): 얻은 값 %v, 원하는 값 %v", c.in, subgot, c.subwant)
+			t.Fatalf("vernum(%v): 얻은 값 %v, 원하는 값 %v", c.in, subgot, c.subwant)
 		}
 	}
 }
