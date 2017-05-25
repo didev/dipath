@@ -43,3 +43,22 @@ def Seqnum(path):
 	seqnum = int(result[0])	
 	return seqnum,None
 
+
+def Vernum(path):
+	"""
+	파일을 받아서 파일 버전과 서브 버전을 반환한다.
+	만약 리턴할 버전과 서브버전이 없으면 -1과 에러를 반환한다.
+	"""
+	p = re.compile("_[vV]([0-9]+)(_[wW]([0-9]+))*")
+	results = p.findall(path)
+
+	if len(results) == 0:
+		return -1, -1, "버전 정보를 가지고 올 수 없습니다."
+	
+	vernum = int(results[0][0])
+	if results[0][2] != "":
+		subnum = int(results[0][2])
+	else:
+		subnum = -1
+	
+	return vernum,subnum, None

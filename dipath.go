@@ -124,11 +124,11 @@ func Vernum(path string) (int, int, error) {
 	//results리스트는 다음값을 가집니다. [0]:"v01_w02.mb", [1]:"01", [3]:"02"
 	results := re.FindStringSubmatch(path)
 	if results == nil {
-		return -1, -1, errors.New("버젼이 잘못되었습니다.")
+		return -1, -1, errors.New("버전 정보를 가지고 올 수 없습니다.")
 	}
 	verNum, err := strconv.Atoi(results[1])
 	if err != nil {
-		return -1, -1, errors.New("버전이 잘못되었습니다.")
+		return -1, -1, errors.New("버전 정보를 가지고 올 수 없습니다.")
 	}
 	//버전은 값이 있고 서브버전에 값이 없다면 -1을 반환
 	subNum, err := strconv.Atoi(results[3])
