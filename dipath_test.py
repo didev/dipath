@@ -43,6 +43,16 @@ class Test_dipath(unittest.TestCase):
 		self.assertEqual(Seqnum("SS_0010_comp_v01.1036...dpx"), (-1,"시퀀스 파일이 아닙니다."))
 		self.assertEqual(Seqnum(""), (-1,"시퀀스 파일이 아닙니다."))
 
+	def test_Vernum(self):
+		self.assertEqual(Vernum("SS_0010_ani_v01_w02.mb"), (1,2,None))
+		self.assertEqual(Vernum("SS_0010_ani_V01_w02.mb"), (1,2,None))
+		self.assertEqual(Vernum("SS_0010_ani_v001_w002.mb"), (1,2,None))
+		self.assertEqual(Vernum("SS_0010_comp_v01.0001.jpg"), (1,-1,None))
+		self.assertEqual(Vernum("SS_0010_comp_V01.0001.jpg"), (1,-1,None))
+		self.assertEqual(Vernum("SS_0010_comp_vvv.0001.jpg"), (-1,-1,"버전 정보를 가지고 올 수 없습니다."))
+		self.assertEqual(Vernum("SS_0010_ani_v001_www.mb"), (1,-1,None))
+		self.assertEqual(Vernum(""), (-1,-1,"버전 정보를 가지고 올 수 없습니다."))
+
 
 if __name__ == "__main__":
 	unittest.main()
