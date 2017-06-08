@@ -53,6 +53,16 @@ class Test_dipath(unittest.TestCase):
 		self.assertEqual(Vernum("SS_0010_ani_v001_www.mb"), (1,-1,None))
 		self.assertEqual(Vernum(""), (-1,-1,"버전 정보를 가지고 올 수 없습니다."))
 
+	def test_Lin2win(self):
+		self.assertEqual(Lin2win("/show/habaek/seq/SS/SS_0010"), "//10.0.200.100/show_habaek/seq/SS/SS_0010")
+		self.assertEqual(Lin2win("/lustre/show/habaek/seq/SS/SS_0010"), "//10.0.200.100/show_habaek/seq/SS/SS_0010")
+		self.assertEqual(Lin2win("/lustre2/show/habaek/seq/SS/SS_0010"), "//10.0.200.100/show_habaek/seq/SS/SS_0010")
+		self.assertEqual(Lin2win("/lustre3/show/habaek/seq/SS/SS_0010"), "//10.0.200.100/show_habaek/seq/SS/SS_0010")
+		self.assertEqual(Lin2win("/clib/src/src1422934591789"), "//10.0.200.100/clib/src/src1422934591789")
+		self.assertEqual(Lin2win("/backup/2009"), "//10.0.200.100/_IDEA_BackUP/2009")
+		self.assertEqual(Lin2win("/lustre/INHouse/nukedev/lut/AlexaV3_K1S1_LogC2Video_Rec709_EE_nuke3d.cube"), "//10.0.200.100/_lustre_INHouse/nukedev/lut/AlexaV3_K1S1_LogC2Video_Rec709_EE_nuke3d.cube")
+		self.assertEqual(Lin2win("aa"), "aa")
+
 
 if __name__ == "__main__":
 	unittest.main()
