@@ -62,3 +62,25 @@ def Vernum(path):
 		subnum = -1
 	
 	return vernum,subnum, None
+
+def Lin2win(path):
+	"""
+	리눅스 경로를 윈도우즈 경로로 바꾸어줍니다.
+	이 함수는 UNC패스(\\\\10.0.200.100형태)로 변경되지 않습니다.
+	변경되지 않으면 입력된 경로를 그대로 반환합니다.
+	"""
+	if path.startswith("/show/"):
+		return "//10.0.200.100/show_" + path[6:]
+	if path.startswith("/lustre/INHouse/"):
+		return "//10.0.200.100/_lustre_INHouse/" + path[16:]
+	if path.startswith("/lustre/show/"):
+		return "//10.0.200.100/show_" + path[13:]
+	if path.startswith("/lustre2/show/"):
+		return "//10.0.200.100/show_" + path[14:]
+	if path.startswith("/lustre3/show/"):
+		return "//10.0.200.100/show_" + path[14:]
+	if path.startswith("/clib/"):
+		return "//10.0.200.100/clib/" + path[6:]
+	if path.startswith("/backup/"):
+		return "//10.0.200.100/_IDEA_BackUP/" + path[8:]
+	return path
