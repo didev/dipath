@@ -63,6 +63,12 @@ class Test_dipath(unittest.TestCase):
 		self.assertEqual(Lin2win("/lustre/INHouse/nukedev/lut/AlexaV3_K1S1_LogC2Video_Rec709_EE_nuke3d.cube"), "//10.0.200.100/_lustre_INHouse/nukedev/lut/AlexaV3_K1S1_LogC2Video_Rec709_EE_nuke3d.cube")
 		self.assertEqual(Lin2win("aa"), "aa")
 
+	def test_Rmlustre(self):
+		self.assertEqual(Rmlustre("/lustre/show/habaek/seq"), "/show/habaek/seq")
+		self.assertEqual(Rmlustre("/lustre2/show/habaek/seq"), "/show/habaek/seq")
+		self.assertEqual(Rmlustre("/lustre3/show/habaek/seq"), "/show/habaek/seq")
+		self.assertEqual(Rmlustre("/show/habaek/seq"), "/show/habaek/seq")
+
 
 if __name__ == "__main__":
 	unittest.main()

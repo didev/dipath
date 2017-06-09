@@ -84,3 +84,16 @@ def Lin2win(path):
 	if path.startswith("/backup/"):
 		return "//10.0.200.100/_IDEA_BackUP/" + path[8:]
 	return path
+
+def Rmlustre(path):
+	"""
+	경로의 시작이 /lustre/show, /lustre2/show, /lustre3/show 로 시작한다면 /show로 바꾸어줍니다.
+	위 사항이 아니라면 입력된 경로를 그대로 반환합니다.
+	"""
+	if path.startswith("/lustre/show"):
+		return path[7:]
+	if path.startswith("/lustre2/show"):
+		return path[8:]
+	if path.startswith("/lustre3/show"):
+		return path[8:]
+	return path
