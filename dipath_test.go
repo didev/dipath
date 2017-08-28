@@ -18,6 +18,7 @@ var tests_lin2win = []testpair{
 	{"/lustre2/show/ghost/seq", "\\\\10.0.200.100\\show_ghost\\seq"},
 	{"/lustre2/show/ghost/seq", "\\\\10.0.200.100\\show_ghost\\seq"},
 	{"/lustre3/show/ghost/seq", "\\\\10.0.200.100\\show_ghost\\seq"},
+	{"/lustre4/show/thesea2/seq", "\\\\10.0.200.100\\show_thesea2\\seq"},
 	{"/lustre2/Marketing/2015Brochure/Creature/0911_confirm", "/lustre2/Marketing/2015Brochure/Creature/0911_confirm"}, //마운트포인트가 없음.
 }
 
@@ -45,7 +46,7 @@ func Test_lin2win(t *testing.T) {
 	}
 }
 
-func Test_win2lin(t *testing.T) {
+func Test_Win2lin(t *testing.T) {
 	for _, pair := range tests_win2lin {
 		v := dipath.Win2lin(pair.values)
 		if pair.result != v {

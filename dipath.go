@@ -52,7 +52,7 @@ func Win2lin(path string) string {
 		return "/show/" + strings.Replace(path[3:], "\\", "/", len(path[3:]))
 	} else if strings.HasPrefix(path, "/show/") {
 		return path
-	} else if strings.HasPrefix(path, "/lustre") || strings.HasPrefix(path, "/lustre2") || strings.HasPrefix(path, "/lustre3") {
+	} else if strings.HasPrefix(path, "/lustre") { // lustre, lustre2, lustre3, lustre4 로 시작할 때..
 		return path
 	} else if strings.HasPrefix(path, "\\\\10.0.200.100\\show_") {
 		return "/show/" + strings.Replace(path[20:], "\\", "/", len(path[20:]))
@@ -76,6 +76,8 @@ func Lin2win(path string) string {
 	} else if strings.HasPrefix(path, "/lustre2/show") {
 		return "\\\\10.0.200.100\\show_" + strings.Replace(path[14:], "/", "\\", len(path[14:]))
 	} else if strings.HasPrefix(path, "/lustre3/show") {
+		return "\\\\10.0.200.100\\show_" + strings.Replace(path[14:], "/", "\\", len(path[14:]))
+	} else if strings.HasPrefix(path, "/lustre4/show") {
 		return "\\\\10.0.200.100\\show_" + strings.Replace(path[14:], "/", "\\", len(path[14:]))
 	} else {
 		return path
