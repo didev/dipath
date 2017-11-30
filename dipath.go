@@ -140,3 +140,17 @@ func Vernum(path string) (int, int, error) {
 
 	return verNum, subNum, nil
 }
+
+// Ideapath함수는 입력받은 경로가 idea 소유주, idea 그룹, 0775권한을 가지도록 설정한다.
+// 이 권한은 전 사원이 읽고 쓸 수 있는 권한을 가지게된다.
+func Ideapath(path string) error {
+	err := os.Chmod(path, 0775)
+	if err != nil {
+		return err
+	}
+	err = os.Chown(path, 500, 500)
+	if err != nil {
+		return err
+	}
+	return nil
+}
