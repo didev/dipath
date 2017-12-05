@@ -154,3 +154,18 @@ func Ideapath(path string) error {
 	}
 	return nil
 }
+
+// Safepath 함수는 입력받은 경로가 idea 소유주, idea 그룹, 555권한을 가지도록 설정한다.
+// 이 권한은 전 사원이 읽고 실행만 가능하다. 삼바서버에서 마우스 드레그사고를 방지한다.
+// 회사는 seq 폴더를 이 권한으로 설정하고 폴더권한을 보호한다.
+func Safepath(path string) error {
+	err := os.Chmod(path, 0555)
+	if err != nil {
+		return err
+	}
+	err = os.Chown(path, 500, 500)
+	if err != nil {
+		return err
+	}
+	return nil
+}
