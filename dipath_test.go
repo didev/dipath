@@ -82,6 +82,55 @@ func Test_RmFileProtocol(t *testing.T) {
 	}
 }
 
+func Test_Project(t *testing.T) {
+	cases := []struct {
+		in   string
+		want string
+	}{{
+		in:   "",
+		want: "",
+	}, {
+		in:   "/show/TEMP/seq",
+		want: "TEMP",
+	}, {
+		in:   "/lustre3/show/TEMP/seq",
+		want: "TEMP",
+	}, {
+		in:   "/lustre2/show/TEMP/seq",
+		want: "TEMP",
+	}, {
+		in:   "//10.0.200.101/lustre/show_TEMP/seq",
+		want: "TEMP",
+	}, {
+		in:   "\\\\10.0.200.101\\lustre3\\show_TEMP\\seq",
+		want: "TEMP",
+	}, {
+		in:   "//10.0.200.100/show_TEMP/seq01",
+		want: "TEMP",
+	}, {
+		in:   "/fxdata/cache/show/TEMP/seq",
+		want: "TEMP",
+	}, {
+		in:   "/backup/2016/TEMP/org_fin",
+		want: "TEMP",
+	}, {
+		in:   "/lustre2/show/TEMP/seq",
+		want: "TEMP",
+	}, {
+		in:   "file:///show/test/",
+		want: "test",
+	}, {
+		in:   "file://\\\\10.0.200.100\\show_test\\",
+		want: "test",
+	}}
+	for _, c := range cases {
+		got, _ := dipath.Project(c.in)
+		if got != c.want {
+			t.Fatalf("Project(%v): 얻은 값 %v, 원하는 값 %v", c.in, got, c.want)
+		}
+	}
+}
+
 func Test_Seqnum(t *testing.T) {
 	cases := []struct {
 		in   string

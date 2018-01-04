@@ -9,7 +9,6 @@ class Test_dipath(unittest.TestCase):
 		self.assertEqual(Project("/lustre3/show/TEMP/seq"), ("TEMP",None))
 		self.assertEqual(Project("/lustre2/show/TEMP/seq"), ("TEMP",None))
 		self.assertEqual(Project("/lustre/show/TEMP/seq"), ("TEMP",None))
-		self.assertEqual(Project("/lustre/show/TEMP/seq"), ("TEMP",None))
 		self.assertEqual(Project("//10.0.200.101/lustre/show_TEMP/seq"), ("TEMP",None))
 		self.assertEqual(Project("\\\\10.0.200.101\\lustre\\show_TEMP\\seq"), ("TEMP",None))
 		self.assertEqual(Project("\\\\10.0.200.101\\lustre2\\show_TEMP\\seq"), ("TEMP",None))
