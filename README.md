@@ -1,15 +1,22 @@
 # dipath
 - 회사 경로관련 라이브러리 이다.
-- golang, python 언어를 지원한다.
+- go, python 언어를 지원한다.
 
 #### 기본정보
 - 개발일시 : '15.12
 - 관리부서 : 파이프라인팀
 
-#### Golang에서 사용하기
+#### Go
+- $GOPATH/src/di/dipath 에 /lustre/INHouse/Tool/dipath 파일들이 존재해야한다.
+- 보통 필요시 소프트링크를 걸어서 사용한다.
+
 ```
-go get gogs.idea.co.kr/di/dipath
+import "di/dipath"
 ```
 
-#### Python 사용법
-- 회사 파이썬경로 : /lustre/INHouse/CentOS/python26/bin/python 
+#### Python
+- 경로 : /lustre/INHouse/Tool/dipath
+
+```
+import "dipath"
+```
