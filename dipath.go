@@ -17,21 +17,21 @@ import (
 // Project 함수는 경로를 받아서 프로젝트 이름을 반환한다.
 func Project(path string) (string, error) {
 	if path == "" {
-		return "", errors.New("빈 문자열 입니다.")
+		return path, errors.New("빈 문자열 입니다.")
 	}
 	p := strings.Replace(path, "\\", "/", -1)
-	reg := `/show[/_](\S+?)/`
+	regRule := `/show[/_](\S+?)/`
 	if strings.HasPrefix(p, "/backup/") {
-		reg = `/backup/\d+?/(\S+?)/`
+		regRule = `/backup/\d+?/(\S+?)/`
 	}
-	re, err := regexp.Compile(reg)
+	re, err := regexp.Compile(regRule)
 	if err != nil {
-		return "", errors.New("레귤러 익스프레션이 잘못되었습니다.")
+		return "", err
 	}
 
 	results := re.FindStringSubmatch(p)
 	if results == nil {
-		return "", errors.New(p + " 경로에서 프로젝트 정보를 가지고 올 수 없습니다.")
+		return "", errors.New(path + " 경로에서 프로젝트 정보를 가지고 올 수 없습니다.")
 	}
 	return results[len(results)-1], nil
 }
@@ -106,10 +106,13 @@ func Lin2win(path string) string {
 	}
 }
 
-// 웹에서 파일을 드레그시 간혹 붙는 file:// 문자열을 제거한다.
-func RmFileProtocol(path string) string {
-	if strings.HasPrefix(path, "file://") {
-		return path[7:]
+// 웹에서 파일을 드레그시 붙는 file:// 형태의 프로토콜 문자열을 제거한다.
+func RmProtocol(path string) string {
+	prefix := []string{"file://", "http://", "ftp://"}
+	for _, p := range prefix {
+		if strings.HasPrefix(path, p) {
+			return path[len(p):]
+		}
 	}
 	return path
 }

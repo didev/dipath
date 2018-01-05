@@ -5,62 +5,63 @@ import (
 	"testing"
 )
 
-type testpair struct {
-	values string
-	result string
-}
-
-var tests_lin2win = []testpair{
-	{"/lustre2/Digitalidea_source/flib/ai/14", "\\\\10.0.200.100\\lustre_Digitalidea_source\\flib\\ai\\14"},
-	{"/lustre/Digitalidea_source/flib/ai/14", "\\\\10.0.200.100\\lustre_Digitalidea_source\\flib\\ai\\14"},
-	{"/show/ghost/seq", "\\\\10.0.200.100\\show_ghost\\seq"},
-	{"/lustre/show/ghost/seq", "\\\\10.0.200.100\\show_ghost\\seq"},
-	{"/lustre2/show/ghost/seq", "\\\\10.0.200.100\\show_ghost\\seq"},
-	{"/lustre2/show/ghost/seq", "\\\\10.0.200.100\\show_ghost\\seq"},
-	{"/lustre3/show/ghost/seq", "\\\\10.0.200.100\\show_ghost\\seq"},
-	{"/lustre4/show/thesea2/seq", "\\\\10.0.200.100\\show_thesea2\\seq"},
-	{"/lustre2/Marketing/2015Brochure/Creature/0911_confirm", "/lustre2/Marketing/2015Brochure/Creature/0911_confirm"}, //마운트포인트가 없음.
-}
-
-var tests_win2lin = []testpair{
-	{"\\\\10.0.200.100\\lustre_Digitalidea_source\\flib\\ai\\14", "/lustre2/Digitalidea_source/flib/ai/14"},
-	{"\\\\10.0.200.100\\show_ghost\\seq", "/show/ghost/seq"},
-	{"\\\\10.0.200.100\\show_ghost\\seq", "/show/ghost/seq"},
-	{"\\\\10.0.200.100\\show_ghost\\seq", "/show/ghost/seq"},
-	{"\\\\10.0.200.100\\show_ghost\\seq", "/show/ghost/seq"},
-	{"/lustre2/Marketing/2015Brochure/Creature/0911_confirm", "/lustre2/Marketing/2015Brochure/Creature/0911_confirm"}, //마운트포인트가 없음.
-	{"/lustre3/show/TEMP/tmp", "/lustre3/show/TEMP/tmp"},                                                               //마운트포인트가 없음.
-}
-
-func Test_lin2win(t *testing.T) {
-	for _, pair := range tests_lin2win {
-		v := dipath.Lin2win(pair.values)
-		if pair.result != v {
-			t.Error(
-				"\n",
-				"입력값:", pair.values, "\n",
-				"예상값:", pair.result, "\n",
-				"연산값:", v, "\n",
-			)
+func Test_Lin2win(t *testing.T) {
+	cases := []struct {
+		in   string
+		want string
+	}{{
+		in:   "/lustre2/Digitalidea_source/flib/ai/14",
+		want: "\\\\10.0.200.100\\lustre_Digitalidea_source\\flib\\ai\\14",
+	}, {
+		in:   "/lustre/Digitalidea_source/flib/ai/14",
+		want: "\\\\10.0.200.100\\lustre_Digitalidea_source\\flib\\ai\\14",
+	}, {
+		in:   "/show/ghost/seq",
+		want: "\\\\10.0.200.100\\show_ghost\\seq",
+	}, {
+		in:   "/lustre/show/ghost/seq",
+		want: "\\\\10.0.200.100\\show_ghost\\seq",
+	}, {
+		in:   "/lustre4/show/thesea2/seq",
+		want: "\\\\10.0.200.100\\show_thesea2\\seq",
+	}, {
+		in:   "/lustre2/Marketing/2015Brochure/Creature/0911_confirm",
+		want: "/lustre2/Marketing/2015Brochure/Creature/0911_confirm",
+	}}
+	for _, c := range cases {
+		got := dipath.Lin2win(c.in)
+		if dipath.Lin2win(c.in) != c.want {
+			t.Fatalf("Win2lin(%v): 얻은 값 %v, 원하는 값 %v", c.in, got, c.want)
 		}
 	}
 }
 
 func Test_Win2lin(t *testing.T) {
-	for _, pair := range tests_win2lin {
-		v := dipath.Win2lin(pair.values)
-		if pair.result != v {
-			t.Error(
-				"\n",
-				"입력값:", pair.values, "\n",
-				"예상값:", pair.result, "\n",
-				"연산값:", v, "\n",
-			)
+	cases := []struct {
+		in   string
+		want string
+	}{{
+		in:   "\\\\10.0.200.100\\lustre_Digitalidea_source\\flib\\ai\\14",
+		want: "/lustre2/Digitalidea_source/flib/ai/14",
+	}, {
+		in:   "\\\\10.0.200.100\\show_ghost\\seq",
+		want: "/show/ghost/seq",
+	}, {
+		in:   "/lustre2/Marketing/2015Brochure/Creature/0911_confirm",
+		want: "/lustre2/Marketing/2015Brochure/Creature/0911_confirm",
+	}, {
+		in:   "/lustre3/show/TEMP/tmp",
+		want: "/lustre3/show/TEMP/tmp",
+	}}
+	for _, c := range cases {
+		got := dipath.Win2lin(c.in)
+		if dipath.Win2lin(c.in) != c.want {
+			t.Fatalf("Win2lin(%v): 얻은 값 %v, 원하는 값 %v", c.in, got, c.want)
 		}
 	}
 }
 
-func Test_RmFileProtocol(t *testing.T) {
+func Test_RmProtocol(t *testing.T) {
 	cases := []struct {
 		in   string
 		want string
@@ -71,13 +72,19 @@ func Test_RmFileProtocol(t *testing.T) {
 		in:   "file:///show/test",
 		want: "/show/test",
 	}, {
+		in:   "http:///show/test",
+		want: "/show/test",
+	}, {
+		in:   "ftp:///show/test",
+		want: "/show/test",
+	}, {
 		in:   "file://\\\\10.0.200.100\\show_test",
 		want: "\\\\10.0.200.100\\show_test",
 	}}
 	for _, c := range cases {
-		got := dipath.RmFileProtocol(c.in)
-		if dipath.RmFileProtocol(c.in) != c.want {
-			t.Fatalf("RmFileProtocol(%v): 얻은 값 %v, 원하는 값 %v", c.in, got, c.want)
+		got := dipath.RmProtocol(c.in)
+		if dipath.RmProtocol(c.in) != c.want {
+			t.Fatalf("RmProtocol(%v): 얻은 값 %v, 원하는 값 %v", c.in, got, c.want)
 		}
 	}
 }
@@ -93,8 +100,20 @@ func Test_Project(t *testing.T) {
 		in:   "/show/TEMP/seq",
 		want: "TEMP",
 	}, {
+		in:   "/show/TEMP/test.txt",
+		want: "TEMP",
+	}, {
 		in:   "/lustre3/show/TEMP/seq",
 		want: "TEMP",
+	}, {
+		in:   "/lustre3/show/프로젝트/seq",
+		want: "프로젝트",
+	}, {
+		in:   "/lustre3/show/项目/seq",
+		want: "项目",
+	}, {
+		in:   "/lustre3/show/プロジェクト/seq",
+		want: "プロジェクト",
 	}, {
 		in:   "/lustre2/show/TEMP/seq",
 		want: "TEMP",
@@ -119,6 +138,12 @@ func Test_Project(t *testing.T) {
 	}, {
 		in:   "file:///show/test/",
 		want: "test",
+	}, {
+		in:   "http://10.0.90.98/show/test/",
+		want: "test",
+	}, {
+		in:   "http://10.0.90.98/test/",
+		want: "",
 	}, {
 		in:   "file://\\\\10.0.200.100\\show_test\\",
 		want: "test",
