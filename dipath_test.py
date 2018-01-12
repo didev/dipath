@@ -5,7 +5,7 @@ from dipath import *
 
 class Test_dipath(unittest.TestCase):
 	def test_Project(self):
-		self.assertEqual(Project("/show/TEMP/seq"), ("TEMP",None))
+		self.assertEqual(Project("/show/TEMP"), ("TEMP",None))
 		self.assertEqual(Project("/lustre3/show/TEMP/seq"), ("TEMP",None))
 		self.assertEqual(Project("/lustre2/show/TEMP/seq"), ("TEMP",None))
 		self.assertEqual(Project("/lustre/show/TEMP/seq"), ("TEMP",None))
@@ -21,18 +21,34 @@ class Test_dipath(unittest.TestCase):
 		self.assertEqual(Project("/backup/2016/TEMP/org_fin"), ("TEMP",None))
 		self.assertEqual(Project("/lustre/INHouse/CentOS/bin"), ("","경로에서 프로젝트를 가지고 올 수 없습니다."))
 
+	def test_Seq(self):
+		self.assertEqual(Seq("/show/TEMP/seq/SS"), ("SS",None))
+		self.assertEqual(Seq("/lustre3/show/TEMP/seq/SS/"), ("SS",None))
+		self.assertEqual(Seq("/lustre2/show/TEMP/seq/BNS/"), ("BNS",None))
+		self.assertEqual(Seq("/lustre/show/TEMP/seq/BNS/"), ("BNS",None))
+		self.assertEqual(Seq("//10.0.200.101/lustre/show_TEMP/seq/SS/"), ("SS",None))
+		self.assertEqual(Seq("/lustre/INHouse/CentOS/bin"), ("","경로에서 시퀀스를 가지고 올 수 없습니다."))
+
 	def test_Shot(self):
-		self.assertEqual(Shot("A0000_SS_0010_comp_v01"), ("SS_0010",None)) # 롤넘버가 존재하는 형태
-		self.assertEqual(Shot("A0000_SS_0010_v01"), ("SS_0010",None)) # 롤넘버가 존재하는 형태
-		self.assertEqual(Shot("A000_SS_0010_v01"), ("SS_0010",None)) # 롤넘버형식이 아닌 포멧을 일부러 추가함.
-		self.assertEqual(Shot("SS_0010_v01"), ("SS_0010",None))
-		self.assertEqual(Shot("SS_0010"), ("SS_0010",None))
-		self.assertEqual(Shot("R1VFX_sh033_comp_v01"), ("R1VFX_sh033",None))
-		self.assertEqual(Shot("/show/TEMP/seq/R1VFX/R1VFX_sh033/comp/dev/R1VFX_sh033_comp_v01"), ("R1VFX_sh033",None)) # 상위경로는 파이프라인툴로 제작된다. 하위보다는 상위경로를 더 신뢰하도록 한다.
-		self.assertEqual(Shot("/show/TEMP/product/out/confirm/170522/R1VFX_sh033_comp_v01"), ("R1VFX_sh033",None))
-		self.assertEqual(Shot("SS_0010_00_previz_v001.mov"), ("SS_0010",None))
-		self.assertEqual(Shot("thesea2_SS_0010_00_previz_v001.mov"), ("SS_0010",None))
-		self.assertEqual(Shot("SDF"), ("","샷이름을 추출할 수 없습니다."))
+		self.assertEqual(Shot("/show/TEMP/seq/S001/S001_0010"), ("0010",None))
+		self.assertEqual(Shot("/lustre3/show/TEMP/seq/SS/SS_0040/"), ("0040",None))
+		self.assertEqual(Shot("/lustre2/show/TEMP/seq/BNS/BNS_0060"), ("0060",None))
+		self.assertEqual(Shot("/lustre/show/TEMP/seq/BNS/Bns_0060/comp"), ("0060",None))
+		self.assertEqual(Shot("//10.0.200.101/lustre/show_TEMP/seq/SS/SS_0070/comp/dev"), ("0070",None))
+		self.assertEqual(Shot("/lustre/INHouse/CentOS/bin"), ("","경로에서 시퀀스를 가지고 올 수 없습니다."))
+
+	def test_ShotFromBaseName(self):
+		self.assertEqual(ShotFromBaseName("A0000_SS_0010_comp_v01"), ("SS_0010",None)) # 롤넘버가 존재하는 형태
+		self.assertEqual(ShotFromBaseName("A0000_SS_0010_v01"), ("SS_0010",None)) # 롤넘버가 존재하는 형태
+		self.assertEqual(ShotFromBaseName("A000_SS_0010_v01"), ("SS_0010",None)) # 롤넘버형식이 아닌 포멧을 일부러 추가함.
+		self.assertEqual(ShotFromBaseName("SS_0010_v01"), ("SS_0010",None))
+		self.assertEqual(ShotFromBaseName("SS_0010"), ("SS_0010",None))
+		self.assertEqual(ShotFromBaseName("R1VFX_sh033_comp_v01"), ("R1VFX_sh033",None))
+		self.assertEqual(ShotFromBaseName("/show/TEMP/seq/R1VFX/R1VFX_sh033/comp/dev/R1VFX_sh033_comp_v01"), ("R1VFX_sh033",None)) # 상위경로는 파이프라인툴로 제작된다. 하위보다는 상위경로를 더 신뢰하도록 한다.
+		self.assertEqual(ShotFromBaseName("/show/TEMP/product/out/confirm/170522/R1VFX_sh033_comp_v01"), ("R1VFX_sh033",None))
+		self.assertEqual(ShotFromBaseName("SS_0010_00_previz_v001.mov"), ("SS_0010",None))
+		self.assertEqual(ShotFromBaseName("thesea2_SS_0010_00_previz_v001.mov"), ("SS_0010",None))
+		self.assertEqual(ShotFromBaseName("SDF"), ("","경로에서 샷을 가지고 올 수 없습니다."))
 	
 	def test_Seqnum(self):
 		self.assertEqual(Seqnum("SS_0010_comp_v01.1036.dpx"), (1036,None))
