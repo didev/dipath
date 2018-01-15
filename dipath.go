@@ -20,9 +20,9 @@ func Project(path string) (string, error) {
 		return path, errors.New("빈 문자열 입니다.")
 	}
 	p := strings.Replace(path, "\\", "/", -1)
-	regRule := `/show[/_](\S+?)/`
+	regRule := `/show[/_](\S[^/]+)`
 	if strings.HasPrefix(p, "/backup/") {
-		regRule = `/backup/\d+?/(\S+?)/`
+		regRule = `/backup/\d+?/(\S[^/]+)`
 	}
 	re, err := regexp.Compile(regRule)
 	if err != nil {
@@ -193,4 +193,46 @@ func Safepath(path string) error {
 		return err
 	}
 	return nil
+}
+
+// Seq 함수는 경로를 받아서 시퀀스를 반환한다.
+func Seq(path string) (string, error) {
+	if path == "" {
+		return path, errors.New("빈 문자열 입니다.")
+	}
+	p := strings.Replace(path, "\\", "/", -1)
+	regRule := `/show[/_]\S+?/seq/(\S[^/]+)`
+	if strings.HasPrefix(p, "/backup/") {
+		regRule = `/backup/\d+?/\S+?/\S+?/seq/(\S[^/]+)`
+	}
+	re, err := regexp.Compile(regRule)
+	if err != nil {
+		return "", err
+	}
+	results := re.FindStringSubmatch(p)
+	if results == nil {
+		return "", errors.New(path + " 경로에서 시퀀스 정보를 가지고 올 수 없습니다.")
+	}
+	return results[len(results)-1], nil
+}
+
+// Shot 함수는 경로를 받아서 샷을 반환한다.
+func Shot(path string) (string, error) {
+	if path == "" {
+		return path, errors.New("빈 문자열 입니다.")
+	}
+	p := strings.Replace(path, "\\", "/", -1)
+	regRule := `/show[/_]\S+?/seq/\S+?/\S+?_(\S[^/]+)`
+	if strings.HasPrefix(p, "/backup/") {
+		regRule = `/backup/\d+?/\S+?/\S+?/seq/\S+?/\S+?_(\S[^/]+)`
+	}
+	re, err := regexp.Compile(regRule)
+	if err != nil {
+		return "", err
+	}
+	results := re.FindStringSubmatch(p)
+	if results == nil {
+		return "", errors.New(path + " 경로에서 샷 정보를 가지고 올 수 없습니다.")
+	}
+	return results[len(results)-1], nil
 }

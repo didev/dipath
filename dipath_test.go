@@ -30,7 +30,7 @@ func Test_Lin2win(t *testing.T) {
 	}}
 	for _, c := range cases {
 		got := dipath.Lin2win(c.in)
-		if dipath.Lin2win(c.in) != c.want {
+		if got != c.want {
 			t.Fatalf("Win2lin(%v): 얻은 값 %v, 원하는 값 %v", c.in, got, c.want)
 		}
 	}
@@ -55,7 +55,7 @@ func Test_Win2lin(t *testing.T) {
 	}}
 	for _, c := range cases {
 		got := dipath.Win2lin(c.in)
-		if dipath.Win2lin(c.in) != c.want {
+		if got != c.want {
 			t.Fatalf("Win2lin(%v): 얻은 값 %v, 원하는 값 %v", c.in, got, c.want)
 		}
 	}
@@ -83,7 +83,7 @@ func Test_RmProtocol(t *testing.T) {
 	}}
 	for _, c := range cases {
 		got := dipath.RmProtocol(c.in)
-		if dipath.RmProtocol(c.in) != c.want {
+		if got != c.want {
 			t.Fatalf("RmProtocol(%v): 얻은 값 %v, 원하는 값 %v", c.in, got, c.want)
 		}
 	}
@@ -97,7 +97,7 @@ func Test_Project(t *testing.T) {
 		in:   "",
 		want: "",
 	}, {
-		in:   "/show/TEMP/seq",
+		in:   "/show/TEMP",
 		want: "TEMP",
 	}, {
 		in:   "/show/TEMP/test.txt",
@@ -237,6 +237,50 @@ func Test_Vernum(t *testing.T) {
 			t.Fatalf("Vernum(%v): 얻은 값 %v, 원하는 값 %v", c.in, got, c.want)
 		} else if subgot != c.subwant {
 			t.Fatalf("vernum(%v): 얻은 값 %v, 원하는 값 %v", c.in, subgot, c.subwant)
+		}
+	}
+}
+
+func Test_Seq(t *testing.T) {
+	cases := []struct {
+		in   string
+		want string
+	}{{
+		in:   "",
+		want: "",
+	}, {
+		in:   "/show/TEMP/seq/SS",
+		want: "SS",
+	}, {
+		in:   "/show/TEMP/seq/BNS/test.txt",
+		want: "BNS",
+	}}
+	for _, c := range cases {
+		got, _ := dipath.Seq(c.in)
+		if got != c.want {
+			t.Fatalf("Seq(%v): 얻은 값 %v, 원하는 값 %v", c.in, got, c.want)
+		}
+	}
+}
+
+func Test_Shot(t *testing.T) {
+	cases := []struct {
+		in   string
+		want string
+	}{{
+		in:   "",
+		want: "",
+	}, {
+		in:   "/show/yeomryeok/seq/S001/S001_0010",
+		want: "0010",
+	}, {
+		in:   "/show/yeomryeok/seq/S001/S001_0010/comp/dev/S001_0010_comp_v01.nk",
+		want: "0010",
+	}}
+	for _, c := range cases {
+		got, _ := dipath.Shot(c.in)
+		if got != c.want {
+			t.Fatalf("Seq(%v): 얻은 값 %v, 원하는 값 %v", c.in, got, c.want)
 		}
 	}
 }
