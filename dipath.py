@@ -45,7 +45,7 @@ def Shot(path):
 	backup = re.findall('/backup/\d+?/\S+?/\S+?/seq/\S+?/\S+?_(\S[^/]+)', path.replace("\\","/"))
 	if len(backup) == 1:
 		return backup[0], None
-	return "", "경로에서 시퀀스를 가지고 올 수 없습니다."
+	return "", "경로에서 샷을 가지고 올 수 없습니다."
 
 
 
@@ -60,7 +60,7 @@ def ShotFromBaseName(path):
 	hasShot = re.findall("([a-zA-Z0-9]+)_([a-zA-Z]*[0-9]+)", path)
 	if hasShot:
 		return hasShot[0][0] + "_" + hasShot[0][1], None
-	return "", "경로에서 샷을 가지고 올 수 없습니다."
+	return "", "파일 경로에서 샷을 가지고 올 수 없습니다."
 
 def Seqnum(path):
 	"""
