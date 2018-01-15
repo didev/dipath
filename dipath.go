@@ -232,7 +232,7 @@ func Shot(path string) (string, error) {
 	}
 	results := re.FindStringSubmatch(p)
 	if results == nil {
-		return "", errors.New(path + " 경로에서 정보를 가지고 올 수 없습니다.")
+		return "", errors.New(path + " 경로에서 샷 정보를 가지고 올 수 없습니다.")
 	}
 	return results[len(results)-1], nil
 }

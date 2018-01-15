@@ -35,7 +35,7 @@ class Test_dipath(unittest.TestCase):
 		self.assertEqual(Shot("/lustre2/show/TEMP/seq/BNS/BNS_0060"), ("0060",None))
 		self.assertEqual(Shot("/lustre/show/TEMP/seq/BNS/Bns_0060/comp"), ("0060",None))
 		self.assertEqual(Shot("//10.0.200.101/lustre/show_TEMP/seq/SS/SS_0070/comp/dev"), ("0070",None))
-		self.assertEqual(Shot("/lustre/INHouse/CentOS/bin"), ("","경로에서 시퀀스를 가지고 올 수 없습니다."))
+		self.assertEqual(Shot("/lustre/INHouse/CentOS/bin"), ("","경로에서 샷을 가지고 올 수 없습니다."))
 
 	def test_ShotFromBaseName(self):
 		self.assertEqual(ShotFromBaseName("A0000_SS_0010_comp_v01"), ("SS_0010",None)) # 롤넘버가 존재하는 형태
@@ -48,7 +48,7 @@ class Test_dipath(unittest.TestCase):
 		self.assertEqual(ShotFromBaseName("/show/TEMP/product/out/confirm/170522/R1VFX_sh033_comp_v01"), ("R1VFX_sh033",None))
 		self.assertEqual(ShotFromBaseName("SS_0010_00_previz_v001.mov"), ("SS_0010",None))
 		self.assertEqual(ShotFromBaseName("thesea2_SS_0010_00_previz_v001.mov"), ("SS_0010",None))
-		self.assertEqual(ShotFromBaseName("SDF"), ("","경로에서 샷을 가지고 올 수 없습니다."))
+		self.assertEqual(ShotFromBaseName("SDF"), ("","파일 경로에서 샷을 가지고 올 수 없습니다."))
 	
 	def test_Seqnum(self):
 		self.assertEqual(Seqnum("SS_0010_comp_v01.1036.dpx"), (1036,None))
