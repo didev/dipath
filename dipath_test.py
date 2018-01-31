@@ -44,6 +44,8 @@ class Test_dipath(unittest.TestCase):
 		self.assertEqual(ShotFromBaseName("SS_0010_v01"), ("SS_0010",None))
 		self.assertEqual(ShotFromBaseName("SS_0010"), ("SS_0010",None))
 		self.assertEqual(ShotFromBaseName("R1VFX_sh033_comp_v01"), ("R1VFX_sh033",None))
+		self.assertEqual(ShotFromBaseName("JYN_1640_comp_L_v01"), ("JYN_1640",None))
+		self.assertEqual(ShotFromBaseName("JYN_1640_comp_left_v01"), ("JYN_1640",None))
 		self.assertEqual(ShotFromBaseName("/show/TEMP/seq/R1VFX/R1VFX_sh033/comp/dev/R1VFX_sh033_comp_v01"), ("R1VFX_sh033",None)) # 상위경로는 파이프라인툴로 제작된다. 하위보다는 상위경로를 더 신뢰하도록 한다.
 		self.assertEqual(ShotFromBaseName("/show/TEMP/product/out/confirm/170522/R1VFX_sh033_comp_v01"), ("R1VFX_sh033",None))
 		self.assertEqual(ShotFromBaseName("SS_0010_00_previz_v001.mov"), ("SS_0010",None))
