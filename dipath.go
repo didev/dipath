@@ -236,3 +236,55 @@ func Shot(path string) (string, error) {
 	}
 	return results[len(results)-1], nil
 }
+
+// Task 함수는 경로를 받아서 Task를 반환한다.
+func Task(path string) (string, error) {
+	if path == "" {
+		return path, errors.New("빈 문자열 입니다.")
+	}
+	p := strings.Replace(path, "\\", "/", -1)
+	regRule := `/show[/_]\S+?/seq/\S+?/\S+?_\S+?/(\S[^/]+)`
+	if strings.HasPrefix(p, "/backup/") {
+		regRule = `/backup/\d+?/\S+?/\S+?/seq/\S+?/\S+?_\S+?/(\S[^/]+)`
+	}
+	re, err := regexp.Compile(regRule)
+	if err != nil {
+		return "", err
+	}
+	results := re.FindStringSubmatch(p)
+	if results == nil {
+		return "", errors.New(path + " 경로에서 Task 정보를 가지고 올 수 없습니다.")
+	}
+	return results[len(results)-1], nil
+}
+
+// Element 함수는 경로를 받아서 Element를 반환한다.
+// 회사는 아직 Element를 도입중이다. 이 함수는 아직 느슨하게 체크한다.
+func Element(path string) (string, error) {
+	if path == "" {
+		return path, errors.New("빈 문자열 입니다.")
+	}
+	p := strings.Replace(path, "\\", "/", -1)
+	regRule := `/show[/_]\S+?/seq/\S+?/\S+?_\S+?/\S[^/]+/\S+?/([a-zA-Z0-9]+[^/])`
+	if strings.HasPrefix(p, "/backup/") {
+		regRule = `/backup/\d+?/\S+?/\S+?/seq/\S+?/\S+?_\S+?/\S[^/]+/\S+?/([a-zA-Z0-9]+[^/])`
+	}
+	re, err := regexp.Compile(regRule)
+	if err != nil {
+		return "", err
+	}
+	results := re.FindStringSubmatch(p)
+	if results == nil {
+		return "", errors.New(path + " 경로에서 Element 정보를 가지고 올 수 없습니다.")
+	}
+	return results[len(results)-1], nil
+}
+
+// Exist함수는 경로가 존재하는지 체크한다.
+// Go에서는 파이썬처럼 간단하게 작성하기 힘들기 때문에 편의를 위해 추가한다.
+func Exist(path string) bool {
+	if _, err := os.Stat(path); err == nil {
+		return true
+	}
+	return false
+}

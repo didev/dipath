@@ -284,3 +284,53 @@ func Test_Shot(t *testing.T) {
 		}
 	}
 }
+
+func Test_Task(t *testing.T) {
+	cases := []struct {
+		in   string
+		want string
+	}{{
+		in:   "",
+		want: "",
+	}, {
+		in:   "/show/yeomryeok/seq/S001/S001_0010",
+		want: "",
+	}, {
+		in:   "/show/yeomryeok/seq/S001/S001_0010/comp/dev/S001_0010_comp_v01.nk",
+		want: "comp",
+	}}
+	for _, c := range cases {
+		got, _ := dipath.Task(c.in)
+		if got != c.want {
+			t.Fatalf("Seq(%v): 얻은 값 %v, 원하는 값 %v", c.in, got, c.want)
+		}
+	}
+}
+
+func Test_Element(t *testing.T) {
+	cases := []struct {
+		in   string
+		want string
+	}{{
+		in:   "",
+		want: "",
+	}, {
+		in:   "/show/yeomryeok/seq/S001/S001_0010/fx/dev/fire",
+		want: "fire",
+	}, {
+		in:   "/show/yeomryeok/seq/S001/S001_0010/fx/dev/S001_0010_fx_v01.nk",
+		want: "S001_", // S001_을 반환하고, 에러도 출력하는 케이스`
+	}, {
+		in:   "/show/yeomryeok/seq/S001/S001_0010/fx/dev/smoke",
+		want: "smoke",
+	}, {
+		in:   "/show/yeomryeok/seq/S001/S001_0010/fx/dev/smoke/S001_0010_fxsmoke_v01.nk",
+		want: "smoke",
+	}}
+	for _, c := range cases {
+		got, _ := dipath.Element(c.in)
+		if got != c.want {
+			t.Fatalf("Seq(%v): 얻은 값 %v, 원하는 값 %v", c.in, got, c.want)
+		}
+	}
+}
