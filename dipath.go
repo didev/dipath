@@ -265,9 +265,9 @@ func Element(path string) (string, error) {
 		return path, errors.New("빈 문자열 입니다.")
 	}
 	p := strings.Replace(path, "\\", "/", -1)
-	regRule := `/show[/_]\S+?/seq/\S+?/\S+?_\S+?/\S[^/]+/\S+?/([a-zA-Z0-9]+[^/])`
+	regRule := `/show[/_]\S+?/seq/\S+?/\S+?_\S+?/\S[^/]+/\S+?/([a-z0-9]+[^/])`
 	if strings.HasPrefix(p, "/backup/") {
-		regRule = `/backup/\d+?/\S+?/\S+?/seq/\S+?/\S+?_\S+?/\S[^/]+/\S+?/([a-zA-Z0-9]+[^/])`
+		regRule = `/backup/\d+?/\S+?/\S+?/seq/\S+?/\S+?_\S+?/\S[^/]+/\S+?/([a-z0-9]+[^/])`
 	}
 	re, err := regexp.Compile(regRule)
 	if err != nil {

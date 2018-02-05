@@ -319,13 +319,13 @@ func Test_Element(t *testing.T) {
 		want: "fire",
 	}, {
 		in:   "/show/yeomryeok/seq/S001/S001_0010/fx/dev/S001_0010_fx_v01.nk",
-		want: "S001_",
+		want: "",
 	}, {
 		in:   "/show/yeomryeok/seq/S001/S001_0010/fx/dev/smoke",
 		want: "smoke",
 	}, {
-		in:   "/show/yeomryeok/seq/S001/S001_0010/fx/dev/smoke/S001_0010_fxsmoke_v01.nk",
-		want: "smoke",
+		in:   "/show/yeomryeok/seq/S001/S001_0010/fx/dev/fire/S001_0010_fxsmoke_v01.nk",
+		want: "fire",
 	}}
 	for _, c := range cases {
 		got, _ := dipath.Element(c.in)
