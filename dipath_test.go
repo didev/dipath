@@ -319,7 +319,7 @@ func Test_Element(t *testing.T) {
 		want: "fire",
 	}, {
 		in:   "/show/yeomryeok/seq/S001/S001_0010/fx/dev/S001_0010_fx_v01.nk",
-		want: "S001_", // S001_을 반환하고, 에러도 출력하는 케이스`
+		want: "S001_",
 	}, {
 		in:   "/show/yeomryeok/seq/S001/S001_0010/fx/dev/smoke",
 		want: "smoke",
