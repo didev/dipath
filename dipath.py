@@ -133,7 +133,6 @@ def Rmlustre(path):
 def Rnum(path):
 	"""
 	파일경로를 받아서 롤넘버와 None을  반환한다.
-	잘못된 롤넘버의 경우 해당 롤넙버와 err를 반환한다.
 	롤넘버가 없으면 빈문자열을 반환한다.
 	"""
 	hasRnum = re.findall("([ABCDEFGH][0-9]{4})_([a-zA-Z0-9]+)_([a-zA-Z]*[0-9]+)", path)
