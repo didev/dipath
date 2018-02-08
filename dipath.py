@@ -140,7 +140,4 @@ def Rnum(path):
 	hasRnum = re.findall("([ABCDEFGH][0-9]{4})_([a-zA-Z0-9]+)_([a-zA-Z]*[0-9]+)", path)
 	if hasRnum: # 롤넘버가 존재할때(최대8권)
 		return hasRnum[0][0], None
-	hasRnum = re.findall("([ABCDEFGH][0-9]*)_([a-zA-Z0-9]+)_([a-zA-Z]*[0-9]+)", path)
-	if hasRnum:
-		return hasRnum[0][0], "잘못된 형식의 롤넘버입니다."
 	return "", "파일 경로에서 롤넘버를 가지고 올 수 없습니다."
