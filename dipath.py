@@ -129,3 +129,18 @@ def Rmlustre(path):
 	if path.startswith("/lustre3/show"):
 		return path[8:]
 	return path
+
+
+def Rnum(path):
+	"""
+	파일경로를 받아서 롤넘버와 None을  반환한다.
+	잘못된 롤넘버의 경우 해당 롤넙버와 err를 반환한다.
+	롤넘버가 없으면 빈문자열을 반환한다.
+	"""
+	hasRnum = re.findall("([ABCDEFGH][0-9]{4})_([a-zA-Z0-9]+)_([a-zA-Z]*[0-9]+)", path)
+	if hasRnum: # 롤넘버가 존재할때(최대8권)
+		return hasRnum[0][0], None
+	hasRnum = re.findall("([ABCDEFGH][0-9]*)_([a-zA-Z0-9]+)_([a-zA-Z]*[0-9]+)", path)
+	if hasRnum:
+		return hasRnum[0][0], "잘못된 형식의 롤넘버입니다."
+	return "", "파일 경로에서 롤넘버를 가지고 올 수 없습니다."

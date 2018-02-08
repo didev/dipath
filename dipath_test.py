@@ -88,6 +88,14 @@ class Test_dipath(unittest.TestCase):
 		self.assertEqual(Rmlustre("/lustre3/show/habaek/seq"), "/show/habaek/seq")
 		self.assertEqual(Rmlustre("/show/habaek/seq"), "/show/habaek/seq")
 
+	def test_Rnum(self):
+		self.assertEqual(Rnum("/show/TEMP/seq/S001/A0000_S001_0010"), ("A0000", None))
+		self.assertEqual(Rnum("A0000_SS_0010_comp_v01"), ("A0000", None)) # 롤넘버가 존재하는 형태
+		self.assertEqual(Rnum("A0000_SS_0010_v01"), ("A0000", None)) # 롤넘버가 존재하는 형태
+		self.assertEqual(Rnum("A00_SS_0010_v01"), ("A00", "잘못된 형식의 롤넘버입니다.")) # 롤넘버형식이 아닌 포멧을 일부러 추가함.
+		self.assertEqual(Rnum("A1234567_SS_0010_v01"), ("A1234567", "잘못된 형식의 롤넘버입니다.")) # 롤넘버형식이 아닌 포멧을 일부러 추가함.
+		self.assertEqual(Rnum("SS_0010_v01"), ("", "파일 경로에서 롤넘버를 가지고 올 수 없습니다."))
+
 
 if __name__ == "__main__":
 	unittest.main()
