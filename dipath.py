@@ -130,7 +130,6 @@ def Rmlustre(path):
 		return path[8:]
 	return path
 
-
 def Rnum(path):
 	"""
 	파일경로를 받아서 롤넘버와 None을  반환한다.
