@@ -56,10 +56,6 @@ def Task(path):
 	show = re.findall('/show[/_]\S+?/seq/\S+?/\S+?_\S+/(\S[^/]+)', path.replace("\\","/"))
 	if len(show) == 1:
 		return show[0], None
-	# backup
-	backup = re.findall('/backup/\d+?/\S+?/\S+?/seq/\S+?/\S+?_\S+/(\S[^/]+)', path.replace("\\","/"))
-	if len(backup) == 1:
-		return backup[0], None
 	return "", "경로에서 Task를 가지고 올 수 없습니다."
 
 
