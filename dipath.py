@@ -47,6 +47,20 @@ def Shot(path):
 		return backup[0], None
 	return "", "경로에서 샷을 가지고 올 수 없습니다."
 
+def Task(path):
+	"""
+	경로를 받아서 Task 문자열과 에러값을 리턴한다.
+	만약 리턴할 Task 문자열이 없으면 ""를 리턴한다.
+	"""
+	# show
+	show = re.findall('/show[/_]\S+?/seq/\S+?/\S+?_\S+/(\S[^/]+)', path.replace("\\","/"))
+	if len(show) == 1:
+		return show[0], None
+	# backup
+	backup = re.findall('/backup/\d+?/\S+?/\S+?/seq/\S+?/\S+?_\S+/(\S[^/]+)', path.replace("\\","/"))
+	if len(backup) == 1:
+		return backup[0], None
+	return "", "경로에서 Task를 가지고 올 수 없습니다."
 
 
 def ShotFromBaseName(path):
