@@ -52,10 +52,14 @@ def Task(path):
 	경로를 받아서 Task 문자열과 에러값을 리턴한다.
 	만약 리턴할 Task 문자열이 없으면 ""를 리턴한다.
 	"""
-	# show
-	show = re.findall('/show[/_]\S+?/seq/\S+?/\S+?_\S+/(\S[^/]+)', path.replace("\\","/"))
-	if len(show) == 1:
-		return show[0], None
+	# shot
+	shot = re.findall('/show[/_]\S+?/seq/\S+?/\S+?_\S+/(\S[^/]+)', path.replace("\\","/"))
+	if len(shot) == 1:
+		return shot[0], None
+	# asset
+	asset = re.findall('/show[/_]\S+?/assets/\S+?/\S+?/(\S[^/]+)', path.replace("\\","/"))
+	if len(asset) == 1:
+		return asset[0], None
 	return "", "경로에서 Task를 가지고 올 수 없습니다."
 
 

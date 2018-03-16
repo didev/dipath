@@ -37,8 +37,9 @@ class Test_dipath(unittest.TestCase):
 		self.assertEqual(Shot("//10.0.200.101/lustre/show_TEMP/seq/SS/SS_0070/comp/dev"), ("0070",None))
 		self.assertEqual(Shot("/lustre/INHouse/CentOS/bin"), ("","경로에서 샷을 가지고 올 수 없습니다."))
 
-	def test_Shot(self):
+	def test_Task(self):
 		self.assertEqual(Task("/show/TEMP/seq/S001/S001_0010/comp"), ("comp",None))
+		self.assertEqual(Task("/show/mrsunshine/assets/char/crow/lookdev"), ("lookdev",None))
 		self.assertEqual(Task("/lustre3/show/TEMP/seq/SS/SS_0040/ani"), ("ani",None))
 		self.assertEqual(Task("/lustre3/show/TEMP/seq/SS/SS_0040/ani/"), ("ani",None))
 
