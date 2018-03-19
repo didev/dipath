@@ -153,7 +153,7 @@ def PlateMov(project, seq, shot, type):
 		temp = 0
 		lastmov = ""
 		for m in movs:
-			current = filter(str.isdigit, m)
+			current = int(filter(str.isdigit, m))
 			if current > temp:
 				temp = current
 				lastmov = m
