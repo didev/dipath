@@ -143,7 +143,7 @@ def Rnum(path):
 
 def PlateMov(project, seq, shot, type):
 	"""
-	plate경로에 mov 파일중 우선순위가 높은 mov를 검색해서 반환.
+	plate경로에 mov 파일중 우선순위가 높은 mov를 검색해서 반환하는 함수이다.
 	SS_0010_org11.mov
 	SS_0010_org11_retime.mov
 	SS_0010_org12.mov
@@ -172,5 +172,4 @@ def PlateMov(project, seq, shot, type):
 
 if __name__== "__main__":
 	result, err = PlateMov("TEMP","SCX", "0010", "org")
-	print result
-	print err
+	print result, err
