@@ -1,6 +1,7 @@
 #coding:utf8
 import re
 import os
+import glob
 
 def Project(path):
 	"""
@@ -139,3 +140,28 @@ def Rnum(path):
 	if hasRnum: # 롤넘버가 존재할때(최대8권)
 		return hasRnum[0][0], None
 	return "", "파일 경로에서 롤넘버를 가지고 올 수 없습니다."
+
+def PlateMov(project, seq, shot, type):
+	"""
+	plate경로에 mov 파일중 우선순위가 높은 mov를 검색해서 반환.
+	"""
+	platepath = "/show/%s/seq/%s/%s_%s/plate" %  (project, seq, seq, shot)
+	if not os.path.exists(platepath):
+		return [], "플레이트 경로가 존재하지 않습니다."
+	for order in ["_retime",""]:
+		movs = glob.glob(platepath + "/" + "%s_%s_%s*%s.mov" %  (seq, shot, type, order))
+		temp = 0
+		lastmov = ""
+		for m in movs:
+			current = filter(str.isdigit, m)
+			if current > temp:
+				temp = current
+				lastmov = m
+		if lastmov:
+			return lastmov, None
+	return "", "mov가 존재하지 않습니다."
+
+if __name__== "__main__":
+	result, err = PlateMov("TEMP","SCX", "0010", "org")
+	print result
+	print err
