@@ -160,11 +160,12 @@ def PlateMov(project, seq, shot, type):
 	last = ""
 	for m in movs:
 		current = int(filter(str.isdigit, m))
-		if current >= temp:
-			temp = current
-			if "retime" in m:
-				lastRetime = m
-			last = m
+		if current < temp:
+			continue
+		temp = current
+		if "retime" in m:
+			lastRetime = m
+		last = m
 	if lastRetime:
 		return lastRetime, None
 	return last, None
