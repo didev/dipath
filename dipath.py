@@ -144,22 +144,30 @@ def Rnum(path):
 def PlateMov(project, seq, shot, type):
 	"""
 	plate경로에 mov 파일중 우선순위가 높은 mov를 검색해서 반환.
+	SS_0010_org11.mov
+	SS_0010_org11_retime.mov
+	SS_0010_org12.mov
+	파일이 있다면 SS_0010_org12.mov 파일과 에러값을 반환한다.
 	"""
 	platepath = "/show/%s/seq/%s/%s_%s/plate" %  (project, seq, seq, shot)
 	if not os.path.exists(platepath):
 		return [], "플레이트 경로가 존재하지 않습니다."
-	for order in ["_retime",""]:
-		movs = glob.glob(platepath + "/" + "%s_%s_%s*%s.mov" %  (seq, shot, type, order))
-		temp = 0
-		lastmov = ""
-		for m in movs:
-			current = int(filter(str.isdigit, m))
-			if current > temp:
-				temp = current
-				lastmov = m
-		if lastmov:
-			return lastmov, None
-	return "", "mov가 존재하지 않습니다."
+	movs = glob.glob(platepath + "/" + "%s_%s_%s*.mov" %  (seq, shot, type))
+	if not movs:
+		return "", "mov가 존재하지 않습니다."
+	temp = 0
+	lastRetime = ""
+	last = ""
+	for m in movs:
+		current = int(filter(str.isdigit, m))
+		if current >= temp:
+			temp = current
+			if "retime" in m:
+				lastRetime = m
+			last = m
+	if lastRetime:
+		return lastRetime, None
+	return last, None
 
 if __name__== "__main__":
 	result, err = PlateMov("TEMP","SCX", "0010", "org")
