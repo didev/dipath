@@ -1,6 +1,7 @@
 #coding:utf8
 import re
 import os
+import glob
 
 def Project(path):
 	"""
@@ -153,3 +154,41 @@ def Rnum(path):
 	if hasRnum: # 롤넘버가 존재할때(최대8권)
 		return hasRnum[0][0], None
 	return "", "파일 경로에서 롤넘버를 가지고 올 수 없습니다."
+
+def PlateMov(project, seq, shot, type):
+	"""
+	plate경로에 mov 파일중 우선순위가 높은 mov를 검색해서 반환하는 함수이다.
+	SS_0010_org11.mov
+	SS_0010_org11_retime.mov
+	SS_0010_org12.mov
+	파일이 있다면 SS_0010_org12.mov 파일과 에러값을 반환한다.
+	"""
+	platepath = "/show/%s/seq/%s/%s_%s/plate" %  (project, seq, seq, shot)
+	if not os.path.exists(platepath):
+		return [], "플레이트 경로가 존재하지 않습니다."
+	case1 = glob.glob(platepath + "/" + "%s_%s_%s*_retime.mov" %  (seq, shot, type))
+	case2 = glob.glob(platepath + "/" + "%s_%s_%s[1-9][0-9].mov" %  (seq, shot, type))
+	case3 = glob.glob(platepath + "/" + "%s_%s_%s[1-9].mov" %  (seq, shot, type))
+	case4 = glob.glob(platepath + "/" + "%s_%s_%s.mov" %  (seq, shot, type))
+	movs = case1 + case2 + case3 + case4
+	if not movs:
+		return "", "mov가 존재하지 않습니다."
+	temp = 0
+	last = ""
+	for m in movs:
+		# 파일경로에서 숫자만 뽑는다.
+		current = int(filter(str.isdigit, m))
+		if current < temp:
+			continue
+		elif current == temp:
+			if "retime" not in m:
+				continue
+			last = m
+		else: #current > temp
+			last = m
+			temp = current
+	return last, None
+
+if __name__== "__main__":
+	result, err = PlateMov("TEMP","SCX", "0010", "org")
+	print result, err
