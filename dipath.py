@@ -160,11 +160,13 @@ def PlateMov(project, seq, shot, type):
 	for m in movs:
 		# 파일경로에서 숫자만 뽑는다.
 		current = int(filter(str.isdigit, m))
-		if current == temp:
+		if current < temp:
+			continue
+		elif current == temp:
 			if "retime" not in m:
 				continue
 			last = m
-		elif current > temp:
+		else: #current > temp
 			last = m
 			temp = current
 	return last, None
