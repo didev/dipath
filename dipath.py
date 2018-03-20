@@ -153,21 +153,19 @@ def PlateMov(project, seq, shot, type):
 	if not os.path.exists(platepath):
 		return [], "플레이트 경로가 존재하지 않습니다."
 	movs = glob.glob(platepath + "/" + "%s_%s_%s*.mov" %  (seq, shot, type))
+	movs.sort()
+	print movs
 	if not movs:
 		return "", "mov가 존재하지 않습니다."
 	temp = 0
-	lastRetime = ""
 	last = ""
 	for m in movs:
+		# 파일경로에서 숫자만 뽑는다.
 		current = int(filter(str.isdigit, m))
 		if current < temp:
 			continue
 		temp = current
-		if "retime" in m:
-			lastRetime = m
 		last = m
-	if lastRetime:
-		return lastRetime, None
 	return last, None
 
 if __name__== "__main__":
