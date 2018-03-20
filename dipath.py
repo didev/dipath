@@ -152,7 +152,11 @@ def PlateMov(project, seq, shot, type):
 	platepath = "/show/%s/seq/%s/%s_%s/plate" %  (project, seq, seq, shot)
 	if not os.path.exists(platepath):
 		return [], "플레이트 경로가 존재하지 않습니다."
-	movs = glob.glob(platepath + "/" + "%s_%s_%s*.mov" %  (seq, shot, type))
+	case1 = glob.glob(platepath + "/" + "%s_%s_%s*_retime.mov" %  (seq, shot, type))
+	case2 = glob.glob(platepath + "/" + "%s_%s_%s[1-9][0-9].mov" %  (seq, shot, type))
+	case3 = glob.glob(platepath + "/" + "%s_%s_%s[1-9].mov" %  (seq, shot, type))
+	case4 = glob.glob(platepath + "/" + "%s_%s_%s.mov" %  (seq, shot, type))
+	movs = case1 + case2 + case3 + case4
 	if not movs:
 		return "", "mov가 존재하지 않습니다."
 	temp = 0
