@@ -38,10 +38,11 @@ class Test_dipath(unittest.TestCase):
 		self.assertEqual(Shot("/lustre/INHouse/CentOS/bin"), ("","경로에서 샷을 가지고 올 수 없습니다."))
 
 	def test_Task(self):
-		self.assertEqual(Task("/show/TEMP/seq/S001/S001_0010/comp"), ("comp",None))
-		self.assertEqual(Task("/show/mrsunshine/assets/char/crow/lookdev"), ("lookdev",None))
-		self.assertEqual(Task("/lustre3/show/TEMP/seq/SS/SS_0040/ani"), ("ani",None))
-		self.assertEqual(Task("/lustre3/show/TEMP/seq/SS/SS_0040/ani/"), ("ani",None))
+		self.assertEqual(Task("/show/TEMP/seq/S001/S001_0010/comp"), ("","경로에서 Task를 가지고 올 수 없습니다."))
+		self.assertEqual(Task("/show/mrsunshine/assets/char/crow/lookdev/dev"), ("lookdev",None))
+		self.assertEqual(Task("/lustre3/show/TEMP/seq/SS/SS_0040/ani/dev"), ("ani",None))
+		self.assertEqual(Task("/lustre3/show/TEMP/seq/SS/SS_0040/ani/pub/preview/SS_0040_ani_v04"), ("ani",None))
+		self.assertEqual(Task("/show/TEMP/seq/SS/SS_0010/ani/dev/hongjoo/preview"), ("ani",None))
 
 	def test_ShotFromBaseName(self):
 		self.assertEqual(ShotFromBaseName("A0000_SS_0010_comp_v01"), ("SS_0010",None)) # 롤넘버가 존재하는 형태
