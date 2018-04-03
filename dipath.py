@@ -161,9 +161,9 @@ def Rnum(path):
 		return hasRnum[0][0], None
 	return "", "파일 경로에서 롤넘버를 가지고 올 수 없습니다."
 
-def PlateMov(project, seq, shot, type):
+def LastPlateMov(project, seq, shot, type):
 	"""
-	plate경로에 mov 파일중 우선순위가 높은 mov를 검색해서 반환하는 함수이다.
+	plate경로에 mov 파일중 최우선으로 확인할 필요가 있는 mov를 검색, 반환하는 함수이다.
 	SS_0010_org11.mov
 	SS_0010_org11_retime.mov
 	SS_0010_org12.mov
