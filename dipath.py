@@ -195,22 +195,23 @@ def PlateMov(project, seq, shot, type):
 			temp = current
 	return last, None
 
-def LastPlate(project, seq, shot, types):
+def LastPlate(project, seq, shot, plateType):
 	"""
-	프로젝트, 시퀀스, 샷을 받아 가장 높은 버전의 plate를 반환합니다.
+	프로젝트, 시퀀스, 샷을 받아 작업에 사용해야 할 plate경로를 반환 합니다.
+	plateType에는 org,left,right,ref,matchmove,src 등의 플레이트 네임이 사용됩니다.
 	"""
 	platePath = "/show/%s/seq/%s/%s_%s/plate" % (project,seq,seq,shot)
 	if not os.path.exists(platePath):
 		return None, "%s 경로가 존재하지 않습니다." % platePath
-	case1 = glob.glob(platePath + "/" + types)
-	case2 = glob.glob(platePath + "/" + types + "[1-9]")
-	case3 = glob.glob(platePath + "/" + types + "[1-9][0-9]")
-	case4 = glob.glob(platePath + "/" + types + "_retime")
-	case5 = glob.glob(platePath + "/" + types + "[1-9]_retime")
-	case6 = glob.glob(platePath + "/" + types + "[1-9][0-9]_retime")
+	case1 = glob.glob(platePath + "/" + plateType)
+	case2 = glob.glob(platePath + "/" + plateType + "[1-9]")
+	case3 = glob.glob(platePath + "/" + plateType + "[1-9][0-9]")
+	case4 = glob.glob(platePath + "/" + plateType + "_retime")
+	case5 = glob.glob(platePath + "/" + plateType + "[1-9]_retime")
+	case6 = glob.glob(platePath + "/" + palteType + "[1-9][0-9]_retime")
 	files = case1 + case2 + case3 + case4 + case5 + case6
 	if not files:
-		return None, "%s plate가 존재하지 않습니다."%types
+		return None, "%s plate가 존재하지 않습니다."%plateType
 	temp = 0
 	last = ""
 	for f in files:
@@ -229,3 +230,4 @@ def LastPlate(project, seq, shot, types):
 if __name__== "__main__":
 	result, err = PlateMov("TEMP","SCX", "0010", "org")
 	print result, err
+
