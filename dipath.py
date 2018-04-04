@@ -208,7 +208,7 @@ def LastPlate(project, seq, shot, plateType):
 	case3 = glob.glob(platePath + "/" + plateType + "[1-9][0-9]")
 	case4 = glob.glob(platePath + "/" + plateType + "_retime")
 	case5 = glob.glob(platePath + "/" + plateType + "[1-9]_retime")
-	case6 = glob.glob(platePath + "/" + palteType + "[1-9][0-9]_retime")
+	case6 = glob.glob(platePath + "/" + plateType + "[1-9][0-9]_retime")
 	files = case1 + case2 + case3 + case4 + case5 + case6
 	if not files:
 		return None, "%s plate가 존재하지 않습니다."%plateType
