@@ -288,3 +288,25 @@ func Exist(path string) bool {
 	}
 	return false
 }
+
+// Seqnum2Sharp 함수는 경로와 파일명을 받아서 시퀀스부분을 #문자열로 바꾸고 시퀀스의 숫자를 int로 바꾼다.
+// "test.0002.jpg" -> "test.####.jpg", 2, nil
+func Seqnum2Sharp(filename string) (string, int, error) {
+	re, err := regexp.Compile("([0-9]+)(\\.[a-zA-Z]+$)")
+	// 이 정보를 통해서 파일명을 구하는 방식으로 바꾼다.
+	if err != nil {
+		return filename, -1, errors.New("정규 표현식이 잘못되었습니다.")
+	}
+	results := re.FindStringSubmatch(filename)
+	if results == nil {
+		return filename, -1, errors.New("경로가 시퀀스 형식이 아닙니다.")
+	}
+	seq := results[1]
+	ext := results[2]
+	header := filename[:strings.LastIndex(filename, seq+ext)]
+	seqNum, err := strconv.Atoi(seq)
+	if err != nil {
+		return filename, -1, err
+	}
+	return header + strings.Repeat("#", len(seq)) + ext, seqNum, nil
+}

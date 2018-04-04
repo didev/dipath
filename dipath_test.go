@@ -2,6 +2,7 @@ package dipath_test
 
 import (
 	"di/dipath"
+	"errors"
 	"testing"
 )
 
@@ -331,6 +332,46 @@ func Test_Element(t *testing.T) {
 		got, _ := dipath.Element(c.in)
 		if got != c.want {
 			t.Fatalf("Seq(%v): 얻은 값 %v, 원하는 값 %v", c.in, got, c.want)
+		}
+	}
+}
+
+func Test_Seqnum2Sharp(t *testing.T) {
+	cases := []struct {
+		path   string
+		result string
+		num    int
+		err    error
+	}{{
+		path:   "01김한웅woong漢雄か.0001.jpg",
+		result: "01김한웅woong漢雄か.####.jpg",
+		num:    1,
+		err:    nil,
+	}, {
+		path:   "01김한웅woong漢雄か0000.jpg",
+		result: "01김한웅woong漢雄か####.jpg",
+		num:    0,
+		err:    nil,
+	}, {
+		path:   "/show/test/01김한웅woong漢雄か0000.jpg",
+		result: "/show/test/01김한웅woong漢雄か####.jpg",
+		num:    0,
+		err:    nil,
+	}, {
+		path:   "1.jpg",
+		result: "#.jpg",
+		num:    1,
+		err:    nil,
+	}, {
+		path:   "a.jpg",
+		result: "a.jpg",
+		num:    -1,
+		err:    errors.New("경로가 시퀀스 형식이 아닙니다."),
+	}}
+	for _, c := range cases {
+		result, num, err := dipath.Seqnum2Sharp(c.path)
+		if result != c.result || num != c.num {
+			t.Fatalf("toSharp(%v): 얻은 값 %v,%v,%v 원하는 값 %v,%v,%v", c.path, result, num, err, c.result, c.num, c.err)
 		}
 	}
 }
