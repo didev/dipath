@@ -318,12 +318,8 @@ func Sharp2Seqnum(path string, n int) (string, error) {
 	if sharpNum == 0 {
 		return path, nil
 	}
-	powValue := fmt.Sprintf("%b", 1<<uint(n))
-	max, err := strconv.Atoi(powValue)
-	if err != nil {
-		return "", err
-	}
-	if max-1 < n {
+	strNum := strconv.Itoa(n)
+	if sharpNum < len(strNum) {
 		return "", fmt.Errorf("%s에 %d 숫자를 담을 수 없습니다.", strings.Repeat("#", sharpNum), n)
 	}
 	listfile := strings.Split(path, strings.Repeat("#", sharpNum))
