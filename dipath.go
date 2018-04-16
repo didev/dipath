@@ -7,7 +7,6 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
-	"math"
 	"os"
 	"regexp"
 	"runtime"
@@ -319,8 +318,12 @@ func Sharp2Seqnum(path string, n int) (string, error) {
 	if sharpNum == 0 {
 		return path, nil
 	}
-	max := int(math.Pow(10, float64(sharpNum))) - 1
-	if max < n {
+	powValue := fmt.Sprintf("%b", 1<<uint(n))
+	max, err := strconv.Atoi(powValue)
+	if err != nil {
+		return "", err
+	}
+	if max-1 < n {
 		return "", fmt.Errorf("%s에 %d 숫자를 담을 수 없습니다.", strings.Repeat("#", sharpNum), n)
 	}
 	listfile := strings.Split(path, strings.Repeat("#", sharpNum))
