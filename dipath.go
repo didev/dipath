@@ -310,3 +310,19 @@ func Seqnum2Sharp(filename string) (string, int, error) {
 	}
 	return header + strings.Repeat("#", len(seq)) + ext, seqNum, nil
 }
+
+// SharpToSeqnum 함수는 경로에 #문자를 숫자로 변경하는 함수이다.
+func SharpToSeqnum(path string, n int) (string, error) {
+	sharpNum := strings.Count(path, "#")
+	if sharpNum == 0 {
+		return path, nil
+	}
+	max := int(math.Pow(10, float64(sharpNum))) - 1
+	if max < n {
+		return "", fmt.Errorf("%s에 %d 숫자를 담을 수 없습니다.", strings.Repeat("#", sharpNum), n)
+	}
+	listfile := strings.Split(path, strings.Repeat("#", sharpNum))
+	head := listfile[0]               // #문자의 앞쪽
+	tail := listfile[len(listfile)-1] // #문자의 뒤쪽
+	return head + fmt.Sprintf("%0"+strconv.Itoa(sharpNum)+"d", n) + tail, nil
+}
