@@ -5,7 +5,9 @@ package dipath
 
 import (
 	"errors"
+	"fmt"
 	"io/ioutil"
+	"math"
 	"os"
 	"regexp"
 	"runtime"
@@ -311,8 +313,8 @@ func Seqnum2Sharp(filename string) (string, int, error) {
 	return header + strings.Repeat("#", len(seq)) + ext, seqNum, nil
 }
 
-// SharpToSeqnum 함수는 경로에 #문자를 숫자로 변경하는 함수이다.
-func SharpToSeqnum(path string, n int) (string, error) {
+// Sharp2Seqnum 함수는 경로에 #문자를 숫자로 변경하는 함수이다.
+func Sharp2Seqnum(path string, n int) (string, error) {
 	sharpNum := strings.Count(path, "#")
 	if sharpNum == 0 {
 		return path, nil
