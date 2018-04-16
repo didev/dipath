@@ -312,7 +312,7 @@ func Seqnum2Sharp(filename string) (string, int, error) {
 	return header + strings.Repeat("#", len(seq)) + ext, seqNum, nil
 }
 
-// Sharp2Seqnum 함수는 경로에 #문자를 숫자로 변경하는 함수이다.
+// Sharp2Seqnum 함수는 경로의 #문자를 숫자(n)로 치환하는 함수이다.
 func Sharp2Seqnum(path string, n int) (string, error) {
 	sharpNum := strings.Count(path, "#")
 	if sharpNum == 0 {
