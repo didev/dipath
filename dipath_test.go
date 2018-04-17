@@ -375,3 +375,25 @@ func Test_Seqnum2Sharp(t *testing.T) {
 		}
 	}
 }
+
+func Test_Sharp2Seqnum(t *testing.T) {
+	cases := []struct {
+		path   string
+		num    int
+		result string
+	}{{
+		path:   "01김한웅woong漢雄か.####.jpg",
+		num:    1,
+		result: "01김한웅woong漢雄か.0001.jpg",
+	}, {
+		path:   "01김한웅woong漢雄か.####.jpg",
+		num:    10000,
+		result: "",
+	}}
+	for _, c := range cases {
+		result, err := dipath.Sharp2Seqnum(c.path, c.num)
+		if result != c.result {
+			t.Fatalf("SharpToSeqnum(%v,%v): 얻은 값 %v, 원하는 값 %v, 에러 %v", c.path, c.num, result, c.result, err)
+		}
+	}
+}
