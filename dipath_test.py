@@ -95,6 +95,12 @@ class Test_dipath(unittest.TestCase):
 		self.assertEqual(Rmlustre("/lustre3/show/habaek/seq"), "/show/habaek/seq")
 		self.assertEqual(Rmlustre("/show/habaek/seq"), "/show/habaek/seq")
 
+	def test_ToNetapp(self):
+		self.assertEqual(ToNetapp("/lustre/show/habaek/seq"), ("/netapp/show/habaek/seq",None))
+		self.assertEqual(ToNetapp("/show/habaek/seq"), ("/netapp/show/habaek/seq",None))
+		self.assertEqual(ToNetapp("/lustre3/show/habaek/seq"), ("/netapp/show/habaek/seq",None))
+		self.assertEqual(ToNetapp("/home/d10191/test"), ("/home/d10191/test","netapp 경로로 바꿀 수 없습니다."))
+
 	def test_Rnum(self):
 		self.assertEqual(Rnum("/show/TEMP/seq/S001/A0000_S001_0010"), ("A0000", None))
 		self.assertEqual(Rnum("A0000_SS_0010_comp_v01"), ("A0000", None)) # 롤넘버가 존재하는 형태

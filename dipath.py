@@ -151,6 +151,15 @@ def Rmlustre(path):
 		return path[8:]
 	return path
 
+def ToNetapp(path):
+	"""
+	경로를 받아서 netapp 스토리지가 사용할 수 있는 경로를 반환한다.
+	"""
+	p = Rmlustre(path)
+	if not p.startswith("/show"):
+		return path, "netapp 경로로 바꿀 수 없습니다."
+	return "/netapp" + p, None
+
 def Rnum(path):
 	"""
 	파일경로를 받아서 롤넘버와 None을  반환한다.
