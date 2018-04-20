@@ -154,6 +154,9 @@ def Rmlustre(path):
 def ToNetapp(path):
 	"""
 	경로를 받아서 netapp 스토리지가 사용할 수 있는 경로를 반환한다.
+	참고) netapp 스토리지는 렌더IO부하를 줄이기 위해서 셋팅된 스토리지이다.
+	예1) /show/project -> /netapp/show/project
+	예2) /lustre/show/project -> /netapp/show/project
 	"""
 	p = Rmlustre(path)
 	if not p.startswith("/show"):
