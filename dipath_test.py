@@ -95,6 +95,10 @@ class Test_dipath(unittest.TestCase):
 		self.assertEqual(Rmlustre("/lustre3/show/habaek/seq"), "/show/habaek/seq")
 		self.assertEqual(Rmlustre("/show/habaek/seq"), "/show/habaek/seq")
 
+	def test_RmNetapp(self):
+		self.assertEqual(RmNetapp("/netapp/show/habaek/seq"), "/show/habaek/seq")
+		self.assertEqual(RmNetapp("/show/habaek/seq"), "/show/habaek/seq")
+
 	def test_ToNetapp(self):
 		self.assertEqual(ToNetapp("/lustre/show/habaek/seq"), ("/netapp/show/habaek/seq",None))
 		self.assertEqual(ToNetapp("/show/habaek/seq"), ("/netapp/show/habaek/seq",None))

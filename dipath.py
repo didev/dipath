@@ -151,6 +151,15 @@ def Rmlustre(path):
 		return path[8:]
 	return path
 
+def RmNetapp(path):
+	"""
+	경로의 시작이 /netapp 으로 시작한다면 /netapp을 제거합니다.
+	위 사항이 아니라면 입력된 경로를 그대로 반환합니다.
+	"""
+	if path.startswith("/netapp"):
+		return path[7:]
+	return path
+
 def ToNetapp(path):
 	"""
 	경로를 받아서 netapp 스토리지가 사용할 수 있는 경로를 반환한다.
