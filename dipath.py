@@ -138,6 +138,23 @@ def Lin2win(path):
 		return "//10.0.200.100/_IDEA_BackUP/" + path[8:]
 	return path
 
+def Win2lin(path):
+	"""
+	윈도우즈 경로를 리눅스 경로로 바꿉니다.
+	변경되지 않으면 입력된 경로를 그대로 반환합니다.
+	"""
+	path = path.replace("\\","/")
+	if path.startswith("//10.0.200.100/show_"):
+		return path.replace("//10.0.200.100/show_","/show/",1)
+	if path.startswith("//10.0.200.101/lustre_show"):
+		return path.replace("//10.0.200.101/lustre_show","/show",1)
+	if path.startswith("//10.0.200.101/lustre2_show"):
+		return path.replace("//10.0.200.101/lustre2_show","/show",1)
+	if path.startswith("//10.0.200.101/lustre3_show"):
+		return path.replace("//10.0.200.101/lustre3_show","/show",1)
+	return path
+
+
 def Rmlustre(path):
 	"""
 	경로의 시작이 /lustre/show, /lustre2/show, /lustre3/show 로 시작한다면 /show로 바꾸어줍니다.
@@ -168,6 +185,7 @@ def ToNetapp(path):
 	예2) /lustre/show/project -> /netapp/show/project
 	"""
 	p = Rmlustre(path)
+	p = Win2lin(p)
 	if not p.startswith("/show"):
 		return path, "netapp 경로로 바꿀 수 없습니다."
 	return "/netapp" + p, None

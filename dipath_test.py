@@ -103,7 +103,17 @@ class Test_dipath(unittest.TestCase):
 		self.assertEqual(ToNetapp("/lustre/show/habaek/seq"), ("/netapp/show/habaek/seq",None))
 		self.assertEqual(ToNetapp("/show/habaek/seq"), ("/netapp/show/habaek/seq",None))
 		self.assertEqual(ToNetapp("/lustre3/show/habaek/seq"), ("/netapp/show/habaek/seq",None))
+		self.assertEqual(ToNetapp("//10.0.200.100/show_ansisung/seq"), ("/netapp/show/ansisung/seq",None))
+		self.assertEqual(ToNetapp("//10.0.200.101/lustre_show/ansisung/seq"), ("/netapp/show/ansisung/seq",None))
+		self.assertEqual(ToNetapp("//10.0.200.101/lustre2_show/ansisung/seq"), ("/netapp/show/ansisung/seq",None))
+		self.assertEqual(ToNetapp("//10.0.200.101/lustre3_show/ansisung/seq"), ("/netapp/show/ansisung/seq",None))
 		self.assertEqual(ToNetapp("/home/d10191/test"), ("/home/d10191/test","netapp 경로로 바꿀 수 없습니다."))
+
+	def test_Win2lin(self):
+		self.assertEqual(Win2lin("//10.0.200.100/show_ansisung/seq"), "/show/ansisung/seq")
+		self.assertEqual(Win2lin("//10.0.200.101/lustre_show/ansisung/seq"), "/show/ansisung/seq")
+		self.assertEqual(Win2lin("//10.0.200.101/lustre2_show/ansisung/seq"), "/show/ansisung/seq")
+		self.assertEqual(Win2lin("//10.0.200.101/lustre3_show/ansisung/seq"), "/show/ansisung/seq")
 
 	def test_Rnum(self):
 		self.assertEqual(Rnum("/show/TEMP/seq/S001/A0000_S001_0010"), ("A0000", None))
