@@ -209,6 +209,8 @@ def LastPlateMov(project, seq, shot, type):
 	파일이 있다면 SS_0010_org12.mov 파일과 에러값을 반환한다.
 	"""
 	platepath = "/show/%s/seq/%s/%s_%s/plate" %  (project, seq, seq, shot)
+	if sys.platform == "win32":
+		platpath = Lin2win(platepath)
 	if not os.path.exists(platepath):
 		return [], "플레이트 경로가 존재하지 않습니다."
 	case1 = glob.glob(platepath + "/" + "%s_%s_%s*_retime.mov" %  (seq, shot, type))
@@ -240,6 +242,8 @@ def LastPlate(project, seq, shot, plateType):
 	plateType에는 org,left,right,ref,matchmove,src 등의 플레이트 네임이 사용됩니다.
 	"""
 	platePath = "/show/%s/seq/%s/%s_%s/plate" % (project,seq,seq,shot)
+	if sys.platform == "win32":
+		platPath = Lin2win(platePath)
 	if not os.path.exists(platePath):
 		return None, "%s 경로가 존재하지 않습니다." % platePath
 	case1 = glob.glob(platePath + "/" + plateType)
