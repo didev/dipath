@@ -1,4 +1,5 @@
 #coding:utf8
+import sys
 import re
 import os
 import glob
@@ -271,6 +272,6 @@ def LastPlate(project, seq, shot, plateType):
 	return last, None
 
 if __name__== "__main__":
-	result, err = PlateMov("TEMP","SCX", "0010", "org")
+	result, err = LastPlate("TEMP","SS", "0010", "org")
 	print result, err
 
