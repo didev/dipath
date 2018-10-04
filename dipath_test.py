@@ -58,7 +58,10 @@ class Test_dipath(unittest.TestCase):
 		self.assertEqual(ShotFromBaseName("SS_0010_00_previz_v001.mov"), ("SS_0010",None))
 		self.assertEqual(ShotFromBaseName("thesea2_SS_0010_00_previz_v001.mov"), ("SS_0010",None))
 		self.assertEqual(ShotFromBaseName("SDF"), ("","파일 경로에서 샷을 가지고 올 수 없습니다."))
-	
+		self.assertEqual(ShotFromBaseName("R2_CG1234_previz_v001.mov"), ("R2_CG1234",None))
+		self.assertEqual(ShotFromBaseName("A1234_R2_CG1234_previz_v001.mov"), ("R2_CG1234",None))
+		self.assertEqual(ShotFromBaseName("/show/TEMP/seq/R2/R2_CG1234/comp/dev/R2_CG1234_comp_v01"), ("R2_CG1234",None))
+
 	def test_Seqnum(self):
 		self.assertEqual(Seqnum("SS_0010_comp_v01.1036.dpx"), (1036,None))
 		self.assertEqual(Seqnum("SS_0010_comp1036.dpx"), (1036,None))
@@ -116,15 +119,14 @@ class Test_dipath(unittest.TestCase):
 		self.assertEqual(Win2lin("//10.0.200.101/lustre3_show/ansisung/seq"), "/show/ansisung/seq")
 
 	def test_Rnum(self):
-		self.assertEqual(Rnum("/show/TEMP/seq/S001/A0000_S001_0010"), ("A0000", None))
+		self.assertEqual(Rnum("/show/TEMP/seq/S001/A0000_S001_0010_comp_v01"), ("A0000", None))
 		self.assertEqual(Rnum("A0000_SS_0010_comp_v01"), ("A0000", None)) # 롤넘버가 존재하는 형태
 		self.assertEqual(Rnum("A0000_SS_0010_v01"), ("A0000", None)) # 롤넘버가 존재하는 형태
 		self.assertEqual(Rnum("SS_0010_v01"), ("", "파일 경로에서 롤넘버를 가지고 올 수 없습니다."))
+		self.assertEqual(Rnum("A1234_R2_CG1234_comp_v01"), ("A1234", None))
 
 	def test_LastPlate(self):
-		self.assertEqual(LastPlate("TEMP","SS","0010","org"), ("/show/TEMP/seq/SS/SS_0010/plate/org11", None))
 		self.assertEqual(LastPlate("TEMP","SS","1010","org"), (None, "/show/TEMP/seq/SS/SS_1010/plate 경로가 존재하지 않습니다."))
-		self.assertEqual(LastPlate("TEMP","SS","0011","org"), (None, "org plate가 존재하지 않습니다."))
 
 if __name__ == "__main__":
 	unittest.main()

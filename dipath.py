@@ -76,7 +76,7 @@ def ShotFromBaseName(path):
 	파일경로를 받아서 베이스샷 문자열과 에러값을 리턴한다.
 	만약 리턴할 베이스샷 문자열이 없으면 ""를 리턴한다.
 	"""
-	hasRnum = re.findall("[/^]([ABCDEFGH][0-9]{4})_([a-zA-Z0-9]+)_([a-zA-Z]*[0-9]+)", path)
+	hasRnum = re.findall("([ABCDEFGH][0-9]{4})_([a-zA-Z0-9]+)_([a-zA-Z]*[0-9]+)_", path)
 	if hasRnum: # 롤넘버가 존재할때(최대8권)
 		return hasRnum[0][1] + "_" + hasRnum[0][2], None
 	hasShot = re.findall("([a-zA-Z0-9]+)_([a-zA-Z]*[0-9]+)", path)
@@ -196,7 +196,7 @@ def Rnum(path):
 	파일경로를 받아서 롤넘버와 None을  반환한다.
 	롤넘버가 없으면 빈문자열을 반환한다.
 	"""
-	hasRnum = re.findall("[/^]([ABCDEFGH][0-9]{4})_([a-zA-Z0-9]+)_([a-zA-Z]*[0-9]+)", path)
+	hasRnum = re.findall("([ABCDEFGH][0-9]{4})_([a-zA-Z0-9]+)_([a-zA-Z]*[0-9]+)_", path)
 	if hasRnum: # 롤넘버가 존재할때(최대8권)
 		return hasRnum[0][0], None
 	return "", "파일 경로에서 롤넘버를 가지고 올 수 없습니다."
