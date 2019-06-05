@@ -1,3 +1,3 @@
-module /Users/kimhanwoong/dipath
+module github.com/didev/dipath
 
 go 1.12

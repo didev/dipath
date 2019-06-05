@@ -2,7 +2,7 @@
 package dipath_test
 
 import (
-	"di/dipath"
+	"github.com/didev/dipath"
 	"fmt"
 )
 
