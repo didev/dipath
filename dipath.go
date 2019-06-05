@@ -1,6 +1,3 @@
-// Package dipath provides filepathAPI for Digitalidea.
-//
-// Author : kimhanwoong TD.
 package dipath
 
 import (
@@ -164,29 +161,21 @@ func Vernum(path string) (int, int, error) {
 	return verNum, subNum, nil
 }
 
-// Ideapath 함수는 입력받은 경로가 idea 소유주, idea 그룹, 0775권한을 가지도록 설정한다.
+// Ideapath 함수는 입력받은 경로가 소유자, 그룹이 0775권한을 가지도록 설정한다.
 // 이 권한은 전 사원이 읽고 쓸 수 있는 권한을 가지게된다.
 func Ideapath(path string) error {
 	err := os.Chmod(path, 0775)
 	if err != nil {
 		return err
 	}
-	err = os.Chown(path, 500, 500)
-	if err != nil {
-		return err
-	}
 	return nil
 }
 
-// Safepath 함수는 입력받은 경로가 idea 소유주, idea 그룹, 555권한을 가지도록 설정한다.
+// Safepath 함수는 입력받은 경로가 소유자,그룹,손님이 555권한을 가지도록 설정한다.
 // 이 권한은 전 사원이 읽고 실행만 가능하다. 삼바서버에서 마우스 드레그사고를 방지한다.
-// 회사는 seq 폴더를 이 권한으로 설정하고 폴더권한을 보호한다.
+// 회사는 주요 상위 경로를 이 권한으로 설정하고 폴더권한을 보호한다. 예) shot 상위폴더
 func Safepath(path string) error {
 	err := os.Chmod(path, 0555)
-	if err != nil {
-		return err
-	}
-	err = os.Chown(path, 500, 500)
 	if err != nil {
 		return err
 	}
