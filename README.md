@@ -1,4 +1,7 @@
 # dipath
+
+![travisCI](https://secure.travis-ci.org/didev/dipath.png)
+
 디지털아이디어 경로 Go 라이브러리 입니다.
 
 #### Use
