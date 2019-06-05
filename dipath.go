@@ -168,6 +168,10 @@ func Ideapath(path string) error {
 	if err != nil {
 		return err
 	}
+	err = os.Chown(path, 500, 500) // 회사에서 사용하는 공용소유자, 공용그룹
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -176,6 +180,10 @@ func Ideapath(path string) error {
 // 회사는 주요 상위 경로를 이 권한으로 설정하고 폴더권한을 보호한다. 예) shot 상위폴더
 func Safepath(path string) error {
 	err := os.Chmod(path, 0555)
+	if err != nil {
+		return err
+	}
+	err = os.Chown(path, 500, 500) // 회사에서 사용하는 공용소유자, 공용그룹
 	if err != nil {
 		return err
 	}
