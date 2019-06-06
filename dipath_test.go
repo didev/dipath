@@ -1,9 +1,10 @@
 package dipath_test
 
 import (
-	"github.com/didev/dipath"
 	"errors"
 	"testing"
+
+	"github.com/digital-idea/dipath"
 )
 
 func Test_Lin2win(t *testing.T) {

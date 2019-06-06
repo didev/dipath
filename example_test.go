@@ -1,9 +1,9 @@
-// 이 문서는 godoc 자동 생성시 예제로 추가되는 파일이다.
 package dipath_test
 
 import (
-	"github.com/didev/dipath"
 	"fmt"
+
+	"github.com/digital-idea/dipath"
 )
 
 func ExampleLin2win() {
